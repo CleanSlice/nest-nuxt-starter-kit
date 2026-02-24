@@ -1,0 +1,15 @@
+// @scope:api
+// @slice:user
+// @layer:data
+// @type:prisma
+
+model User {
+  id        String   @id
+  email     String   @unique
+  name      String
+  roles     String[]
+  verified  Boolean  @default(false)
+  banned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

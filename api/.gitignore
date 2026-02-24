@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+
+# Environment files (keep .env.example)
+.env.dev
+.env.staging
+.env.prod
+
+# Generated files
+swagger-spec.json
+prisma/schema.prisma

@@ -1,0 +1,5 @@
+# Installed skills (run /setup to install)
+*
+!setup/
+!setup/**
+!.gitignore

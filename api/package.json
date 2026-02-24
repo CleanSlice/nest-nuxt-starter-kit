@@ -1,0 +1,80 @@
+{
+  "name": "starter-api",
+  "version": "1.0.0",
+  "description": "CleanSlice NestJS API Starter Kit",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "predev": "npm run docker && npm run generate && npm run migrate",
+    "dev": "cross-env NODE_ENV=dev nest start --watch",
+    "start:prod": "npx prisma migrate deploy && node dist/main",
+    "docker": "docker compose up -d",
+    "generate": "npx prisma-import --force",
+    "premigrate": "npx prisma-import --force",
+    "migrate": "npx dotenv-cli -e .env.dev -- npx prisma migrate dev && npx dotenv-cli -e .env.dev -- npx prisma generate",
+    "studio": "npx dotenv-cli -e .env.dev -- npx prisma studio",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.0.0",
+    "@prisma/client": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "cross-env": "^7.0.3",
+    "helmet": "^8.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0",
+    "uuid": "^11.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/schematics": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "@types/uuid": "^10.0.0",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.0",
+    "prisma": "^6.0.0",
+    "prisma-import": "^1.0.0",
+    "source-map-support": "^0.5.21",
+    "ts-jest": "^29.0.0",
+    "ts-loader": "^9.0.0",
+    "ts-node": "^10.9.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.0"
+  },
+  "prisma": {
+    "import": {
+      "schemas": "./src/**/!(schema).prisma",
+      "output": "./prisma/schema.prisma"
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": ["**/*.(t|j)s"],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^#/(.*)$": "<rootDir>/slices/$1",
+      "^#$": "<rootDir>/slices"
+    }
+  }
+}

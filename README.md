@@ -60,6 +60,26 @@ nest-nuxt-starter-kit/
 - Docker & Docker Compose
 - npm
 
+## AI Development Skills (Claude Code)
+
+This starter kit includes a `/setup` skill that installs the required agent skills for AI-assisted development:
+
+| Skill | Purpose |
+|-------|---------|
+| **cleanslice** | Architecture patterns, vertical slices, gateway, Provider.vue |
+| **shadcn-vue** | UI component library, Reka UI, Tailwind, dark mode |
+| **conventional-commits** | Conventional Commits standard for git messages |
+
+Run `/setup` in Claude Code to install all skills. You can also install them manually:
+
+```bash
+npx playbooks add skill noartem/skills --skill shadcn-vue
+npx skills add CleanSlice/skills --skill cleanslice
+npx skillfish add bbgnsurftech/claude-skills-collection conventional-commits
+```
+
+Restart the Claude Code session after installing to activate the skills.
+
 ## Quick Start
 
 ```bash
@@ -81,6 +101,9 @@ cd app
 npm install
 npm run build:api              # Generates typed SDK from Swagger spec
 npm run dev                    # http://localhost:3001
+
+# 4. Install AI development skills (Claude Code)
+/setup                         # Installs CleanSlice + shadcn-vue skills
 ```
 
 ## Architecture
@@ -315,7 +338,7 @@ Nuxt auto-imports Vue APIs, composables, components, and Pinia stores — no man
 
 | Script | Purpose |
 |--------|---------|
-| `npm run start:dev` | Start dev server with hot reload |
+| `npm run dev` | Start dev server with hot reload |
 | `npm run docker` | Start Docker services (PostgreSQL) |
 | `npm run migrate` | Merge Prisma schemas + run migrations |
 | `npm run generate` | Merge Prisma schemas only |
