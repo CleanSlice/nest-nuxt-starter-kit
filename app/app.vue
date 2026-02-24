@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-background">
+  <NuxtLayout>
     <NuxtPage />
-    <Sonner />
-  </div>
+  </NuxtLayout>
+  <Sonner />
 </template>

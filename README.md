@@ -75,7 +75,7 @@ Run `/setup` in Claude Code to install all skills. You can also install them man
 ```bash
 npx playbooks add skill noartem/skills --skill shadcn-vue
 npx skills add CleanSlice/skills --skill cleanslice
-npx skillfish add bbgnsurftech/claude-skills-collection conventional-commits
+npx skills add CleanSlice/skills --skill conventional-commits
 ```
 
 Restart the Claude Code session after installing to activate the skills.
@@ -382,8 +382,9 @@ JWT_EXPIRES_IN=7d
 
 ## Documentation
 
-- [CleanSlice Docs](https://cleanslice.dev) — Full architecture documentation
-- [CleanSlice MCP](https://github.com/nicenathapong/cleanslice) — AI agent instructions via MCP server
+- [CleanSlice Docs](https://cleanslice.org) — Full architecture documentation
+- [CleanSlice MCP](https://mcp.cleanslice.org) — AI agent instructions via MCP server
+- [GitHub](https://github.com/CleanSlice/nest-nuxt-starter-kit) — Starter kit repository
 
 ## License
 

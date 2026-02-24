@@ -1,12 +1,21 @@
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, resolve } from 'path';
+import { readFileSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
+const appRoot = resolve(currentDir, '../../..');
+
+// Read theme name from components.json
+const componentsJson = JSON.parse(
+  readFileSync(resolve(appRoot, 'components.json'), 'utf-8'),
+);
+const themeName = componentsJson.tailwind?.theme || 'default';
+const themeCss = `#theme/assets/themes/${themeName}.css`;
 
 export default defineNuxtConfig({
   modules: ['shadcn-nuxt'],
-  css: ['#theme/assets/css/tailwind.css'],
+  css: [themeCss, '#theme/assets/css/tailwind.css'],
   alias: {
     '#theme': currentDir,
   },

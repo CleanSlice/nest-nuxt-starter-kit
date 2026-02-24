@@ -1,13 +1,14 @@
 {
   "$schema": "https://shadcn-vue.com/schema.json",
-  "style": "default",
+  "style": "dark",
   "typescript": true,
   "tailwind": {
     "config": "",
     "css": "slices/setup/theme/assets/css/tailwind.css",
     "baseColor": "neutral",
     "cssVariables": true,
-    "prefix": ""
+    "prefix": "",
+    "theme": "cleanslice"
   },
   "iconLibrary": "lucide",
   "aliases": {
