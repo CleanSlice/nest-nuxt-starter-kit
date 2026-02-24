@@ -106,7 +106,7 @@ const setupSteps = [
 
           <!-- Terminal -->
           <Terminal class="mt-12 w-full max-w-md">
-            <TerminalLine command="git clone <repo-url> my-project" />
+            <TerminalLine command="npx create-cleanslice my-app" />
           </Terminal>
         </div>
       </div>
@@ -277,7 +277,7 @@ const setupSteps = [
         Start building
       </h2>
       <p class="mt-3 text-muted-foreground">
-        Clone the starter kit, add your slices, ship your product.
+        One command to scaffold, add your slices, ship your product.
       </p>
       <div class="mt-8 flex items-center justify-center gap-3">
         <Button size="lg" as-child>
