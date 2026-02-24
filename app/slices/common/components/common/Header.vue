@@ -1,17 +1,32 @@
 <script setup lang="ts">
-import { Layers, Github, ExternalLink, Sun, Moon } from 'lucide-vue-next'
+import { Github, ExternalLink, Sun, Moon } from 'lucide-vue-next'
 
 const colorMode = useColorMode()
+
+const logoColors = computed(() => {
+  const isDark = colorMode.value === 'dark'
+  return {
+    bg: isDark ? '#071A22' : '#F4FBFC',
+    l1: isDark ? '#0E3A46' : '#0B2F38',
+    l2: isDark ? '#1E6E7A' : '#136B76',
+    l3: isDark ? '#3BB9C4' : '#1FB6C1',
+    l4: isDark ? '#6FEFF5' : '#4FD1D9',
+  }
+})
 </script>
 
 <template>
   <header class="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
-    <div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-      <NuxtLink to="/" class="flex items-center gap-2.5">
-        <div class="flex size-7 items-center justify-center rounded-lg bg-foreground">
-          <Layers class="size-3.5 text-background" :stroke-width="2.5" />
-        </div>
-        <span class="text-sm font-semibold tracking-tight">CleanSlice</span>
+    <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+      <NuxtLink to="/" class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-6 w-6 rounded">
+          <rect width="64" height="64" rx="14" :fill="logoColors.bg" />
+          <ellipse cx="32" cy="48" rx="20" ry="7" :fill="logoColors.l1" />
+          <ellipse cx="32" cy="38" rx="20" ry="7" :fill="logoColors.l2" />
+          <ellipse cx="32" cy="28" rx="20" ry="7" :fill="logoColors.l3" />
+          <ellipse cx="32" cy="18" rx="20" ry="7" :fill="logoColors.l4" />
+        </svg>
+        <span class="text-base font-medium">CleanSlice</span>
       </NuxtLink>
 
       <nav class="flex items-center gap-1">

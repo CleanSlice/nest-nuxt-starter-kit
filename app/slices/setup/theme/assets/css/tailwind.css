@@ -64,3 +64,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .glow {
+    text-shadow: var(--glow-text);
+    box-shadow: var(--glow-box);
+  }
+  .text-shadow-glow {
+    text-shadow: var(--glow-text);
+  }
+  .shadow-glow {
+    box-shadow: var(--glow-box);
+  }
+}

@@ -10,6 +10,13 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   extends: [...registerSlices()],
   ssr: false,
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
+    },
+  },
   modules: ['@nuxtjs/color-mode'],
   colorMode: {
     classSuffix: '',

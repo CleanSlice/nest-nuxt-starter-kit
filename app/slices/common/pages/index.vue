@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {
   Layers, Shield, Database, Component,
-  Code2, Box, ArrowRight, Copy, Check,
-  ChevronRight, Terminal, Cpu, Puzzle,
+  Code2, Box, ArrowRight,
+  ChevronRight, Terminal as TerminalIcon, Cpu, Puzzle,
 } from 'lucide-vue-next'
 
 const features = [
@@ -56,7 +56,7 @@ const setupSteps = [
     command: '/setup',
   },
   {
-    icon: Terminal,
+    icon: TerminalIcon,
     step: '3',
     title: 'Start Building',
     description: 'Claude Code now understands CleanSlice. Ask it to create slices, gateways, and more.',
@@ -64,13 +64,6 @@ const setupSteps = [
   },
 ]
 
-const copied = ref('')
-
-function copyCommand(command: string) {
-  navigator.clipboard.writeText(command)
-  copied.value = command
-  setTimeout(() => { copied.value = '' }, 2000)
-}
 </script>
 
 <template>
@@ -112,29 +105,9 @@ function copyCommand(command: string) {
           </div>
 
           <!-- Terminal -->
-          <div class="mt-12 w-full max-w-md">
-            <div class="group rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm">
-              <div class="flex items-center gap-1.5 border-b border-border/40 px-4 py-2.5">
-                <span class="size-2.5 rounded-full bg-border" />
-                <span class="size-2.5 rounded-full bg-border" />
-                <span class="size-2.5 rounded-full bg-border" />
-                <span class="ml-2 text-[11px] text-muted-foreground/60">terminal</span>
-              </div>
-              <div class="flex items-center justify-between px-4 py-3">
-                <code class="text-sm text-muted-foreground">
-                  <span class="text-foreground/40">$</span>
-                  git clone &lt;repo-url&gt; my-project
-                </code>
-                <button
-                  class="flex size-7 items-center justify-center rounded-md text-muted-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
-                  @click="copyCommand('git clone <repo-url> my-project')"
-                >
-                  <Check v-if="copied === 'git clone <repo-url> my-project'" class="size-3.5 text-emerald-500" />
-                  <Copy v-else class="size-3.5" />
-                </button>
-              </div>
-            </div>
-          </div>
+          <Terminal class="mt-12 w-full max-w-md">
+            <TerminalLine command="git clone <repo-url> my-project" />
+          </Terminal>
         </div>
       </div>
     </section>
@@ -291,18 +264,7 @@ function copyCommand(command: string) {
               <p class="mt-1 text-xs text-muted-foreground">
                 {{ step.description }}
               </p>
-              <div class="mt-3 flex items-center gap-2 rounded-lg border border-border/40 bg-background/80 px-3 py-2">
-                <code class="flex-1 truncate text-xs text-muted-foreground">
-                  <span class="text-foreground/40">$</span> {{ step.command }}
-                </code>
-                <button
-                  class="flex size-6 shrink-0 items-center justify-center rounded text-muted-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
-                  @click="copyCommand(step.command)"
-                >
-                  <Check v-if="copied === step.command" class="size-3 text-emerald-500" />
-                  <Copy v-else class="size-3" />
-                </button>
-              </div>
+              <TerminalLine :command="step.command" class="mt-3 rounded-lg border border-border/40 bg-background/80 px-3 py-2 text-xs" />
             </div>
           </div>
         </div>
