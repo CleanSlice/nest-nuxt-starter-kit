@@ -14,8 +14,8 @@ RUN npm ci
 
 COPY api/ ./
 
-# Merge slice schemas, generate Prisma client, build NestJS
-RUN npx prisma-import --force && npx prisma generate && npm run build
+# Merge slice schemas, generate Prisma client, build NestJS, generate swagger spec
+RUN npx prisma-import --force && npx prisma generate && npm run build && npm run generate:swagger
 
 # ============================================
 # Stage 2: Build the App

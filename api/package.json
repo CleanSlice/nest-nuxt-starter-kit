@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
+    "generate:swagger": "node dist/generate-swagger.js",
     "start": "nest start",
     "predev": "npm run docker && npm run generate && npm run migrate",
     "dev": "cross-env NODE_ENV=dev nest start --watch",
