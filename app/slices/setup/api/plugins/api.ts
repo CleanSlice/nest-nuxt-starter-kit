@@ -1,9 +1,10 @@
-import { client } from '../data/repositories/api/sdk.gen';
-import { apiConfig } from '../api.config';
+import { client } from '../data/repositories/api/client.gen';
 
 export default defineNuxtPlugin(() => {
+  const { apiUrl } = useRuntimeConfig().public;
+
   client.setConfig({
-    baseURL: apiConfig.baseURL,
+    baseURL: apiUrl as string,
   });
 
   client.instance.interceptors.response.use(

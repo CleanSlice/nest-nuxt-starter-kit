@@ -3,10 +3,10 @@
 
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from '#/setup/prisma';
-import { SetupModule } from '#/setup/setup.module';
-import { HealthModule } from '#/setup/health/health.module';
-import { UserModule } from '#/user/user.module';
+import { PrismaModule } from '#setup/prisma';
+import { SetupModule } from '#setup/setup.module';
+import { HealthModule } from '#setup/health/health.module';
+import { UserSliceModule } from '#user/user.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { UserModule } from '#/user/user.module';
     PrismaModule,
     SetupModule,
     HealthModule,
-    UserModule,
+    UserSliceModule,
   ],
 })
 export class AppModule {}

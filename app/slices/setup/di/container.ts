@@ -22,11 +22,11 @@ class DIContainer {
   }
 
   static isDevelopment(): boolean {
-    return process.env.NODE_ENV === 'development';
+    return import.meta.env.DEV;
   }
 
   static useMocks(): boolean {
-    return process.env.NUXT_PUBLIC_USE_MOCKS === 'true';
+    return import.meta.env.VITE_USE_MOCKS === 'true';
   }
 }
 

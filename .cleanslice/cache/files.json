@@ -1,0 +1,456 @@
+{
+  "files": {
+    "api/src/slices/setup/error/domain/base.error.ts": {
+      "hash": "6ea04ea41718c6bf9e67aca5df50f14077293f4c09fae07cd86ec5b256eaa417",
+      "updatedAt": "2026-03-11T17:02:16.830Z"
+    },
+    "api/src/slices/setup/error/domain/error.types.ts": {
+      "hash": "60a930fb339261d986a927b14563e3f45825714246bb74e53d7b030280aa3685",
+      "updatedAt": "2026-03-11T17:02:16.832Z"
+    },
+    "api/src/slices/setup/error/error.module.ts": {
+      "hash": "31be2b3bf986f5ebd9bd854c3ec0260a35b0bfb6cefc699e3495e1f780cfd419",
+      "updatedAt": "2026-03-11T17:02:16.832Z"
+    },
+    "api/src/slices/setup/error/index.ts": {
+      "hash": "88e6417bcf487ebdfb5a2d8157df13b2799706ec0118db04c31ac0c84b322147",
+      "updatedAt": "2026-03-11T17:02:16.833Z"
+    },
+    "api/src/slices/setup/error/interceptors/error-handling.interceptor.ts": {
+      "hash": "66100c8288aae6f1115a811d28b71a29ca8d2334db5931e33bc443a8001f3ee1",
+      "updatedAt": "2026-03-11T17:02:16.833Z"
+    },
+    "api/src/slices/setup/health/health.controller.ts": {
+      "hash": "7cb7235aabab145bc156b7f4ac8445ddf15982465499c6fbfacda645a3969d80",
+      "updatedAt": "2026-03-11T17:02:16.833Z"
+    },
+    "api/src/slices/setup/health/health.module.ts": {
+      "hash": "67b333bb8c61cbad80401e24f6f4a761736127ef54ee826fec7f7e0de5a334ac",
+      "updatedAt": "2026-03-11T17:02:16.834Z"
+    },
+    "api/src/slices/setup/prisma/index.ts": {
+      "hash": "5563d449502117786f2aab0192ef7b43f90e6e880645cedb6d23852fb591e785",
+      "updatedAt": "2026-03-11T17:02:16.834Z"
+    },
+    "api/src/slices/setup/prisma/prisma.module.ts": {
+      "hash": "d04893933a36246ff322f7bfccaa77266c31911f836a3f1f2623059fcbc13f07",
+      "updatedAt": "2026-03-11T17:02:16.835Z"
+    },
+    "api/src/slices/setup/prisma/prisma.service.ts": {
+      "hash": "f9113b2f71c54e2b15aafd0ac88cb4ac8e54dede90a529a468517048ed7f6db6",
+      "updatedAt": "2026-03-11T17:02:16.835Z"
+    },
+    "api/src/slices/setup/response/decorators/flat-response.decorator.ts": {
+      "hash": "d57b3eba77befddc49c13dfe1d61e4a0ff7c751faa562e1fa41b27d99f3db482",
+      "updatedAt": "2026-03-11T17:02:16.835Z"
+    },
+    "api/src/slices/setup/response/domain/response.types.ts": {
+      "hash": "c98e7742113905002b000dfb2a1bd0fc291ff6f03bc4ed451a7022051116acdb",
+      "updatedAt": "2026-03-11T17:02:16.836Z"
+    },
+    "api/src/slices/setup/response/index.ts": {
+      "hash": "8dd0c8ecfacbf9e64970d92093b71eaf45e115d4ceedf846caf79a25cbf3f0ae",
+      "updatedAt": "2026-03-11T17:02:16.836Z"
+    },
+    "api/src/slices/setup/response/interceptors/response.interceptor.ts": {
+      "hash": "8289c4df60cdbbd1269bba1e85233167da119a804ea79238dea704e13e740eb1",
+      "updatedAt": "2026-03-11T17:02:16.836Z"
+    },
+    "api/src/slices/setup/response/response.module.ts": {
+      "hash": "427b2ac6e4d92019e9e31a07fc29e4f706a6cc6a587bec8de2783c1ae45d1e07",
+      "updatedAt": "2026-03-11T17:02:16.836Z"
+    },
+    "api/src/slices/setup/setup.module.ts": {
+      "hash": "e2222317fdae035a9277297040211ebba5a974e5a86b11ea02f87fabd4d0a4bc",
+      "updatedAt": "2026-03-11T17:02:16.837Z"
+    },
+    "api/src/user/auth/auth.controller.ts": {
+      "hash": "c67746badf660f2cf3c4dede50253e4ab4448f354aa49c936107fae0e24c7612",
+      "updatedAt": "2026-03-11T17:02:16.837Z"
+    },
+    "api/src/user/auth/auth.module.ts": {
+      "hash": "3f80f6f75a4b9a5c7fea3c4e24655715321f598aa4cd90276bc24da54e671da1",
+      "updatedAt": "2026-03-11T17:02:16.837Z"
+    },
+    "api/src/user/auth/data/auth.gateway.ts": {
+      "hash": "122eae7365a45e1cc59f5192c3097158b814aa62e18be4775ca67c7986a24014",
+      "updatedAt": "2026-03-11T17:02:16.838Z"
+    },
+    "api/src/user/auth/data/auth.mapper.ts": {
+      "hash": "bfea4d098b494e98eb88570cd64d223767f78ee36cf6cbb06ed8665abd3ccabe",
+      "updatedAt": "2026-03-11T17:02:16.838Z"
+    },
+    "api/src/user/auth/domain/auth.errors.ts": {
+      "hash": "0c3e0f144eaa18c3f8a5700d23f7e3b5622c0c791dc1fb7595c948ffc7269173",
+      "updatedAt": "2026-03-11T17:02:16.838Z"
+    },
+    "api/src/user/auth/domain/auth.gateway.ts": {
+      "hash": "856aade7317c2502a98b6cbabb6ca119d92de242c99ed2478e74339f15d67c30",
+      "updatedAt": "2026-03-11T17:02:16.839Z"
+    },
+    "api/src/user/auth/domain/auth.service.ts": {
+      "hash": "f9124c6afc59d4e0704fdf5fac2836210ee4c91d798602d976ce3fd381b832d7",
+      "updatedAt": "2026-03-11T17:02:16.839Z"
+    },
+    "api/src/user/auth/domain/auth.types.ts": {
+      "hash": "793581abbf88ae18435fbc5b65a46cab3dd26557499aa80cb8983071ecb143fb",
+      "updatedAt": "2026-03-11T17:02:16.839Z"
+    },
+    "api/src/user/auth/domain/index.ts": {
+      "hash": "bd6425e6167305b8be844991aa042638fcfc57aba69062eeeed9ad94da561ea2",
+      "updatedAt": "2026-03-11T17:02:16.839Z"
+    },
+    "api/src/user/auth/dtos/auth.dto.ts": {
+      "hash": "33f8b105dee9364c185bff712bb74fb19334005f613aba096d6f961b8e9eb1e8",
+      "updatedAt": "2026-03-11T17:02:16.840Z"
+    },
+    "api/src/user/auth/dtos/index.ts": {
+      "hash": "5899341cf9326a27838d3c818a10b8d96c7ac759a08b37adb38cc620616f16f7",
+      "updatedAt": "2026-03-11T17:02:16.841Z"
+    },
+    "api/src/user/auth/dtos/login.dto.ts": {
+      "hash": "246c4974b180a3a9e038911032abf93a87bcf1585e3e47b6982e56f820715a42",
+      "updatedAt": "2026-03-11T17:02:16.843Z"
+    },
+    "api/src/user/auth/dtos/register.dto.ts": {
+      "hash": "66a16b6ae8d55433bb34ca161f27080a22c54eeadfbeeed07c2de108963a7c15",
+      "updatedAt": "2026-03-11T17:02:16.843Z"
+    },
+    "api/src/user/auth/guards/jwt-auth.guard.ts": {
+      "hash": "6701b5e81a293bac40db34ae55f76ed8bb35ceb54ca3d057d80a954316dd284b",
+      "updatedAt": "2026-03-11T17:02:16.843Z"
+    },
+    "api/src/user/auth/guards/jwt.strategy.ts": {
+      "hash": "6eec23b1c367e1e359bfea26356d98d4e0e8b75d2ea39f4506aa9e367d32d3d2",
+      "updatedAt": "2026-03-11T17:02:16.844Z"
+    },
+    "api/src/user/user/data/user.gateway.ts": {
+      "hash": "3a0c2dd712668e8d881deb97c6fb5a98a1a725e08a449a9e52bdfb1c84427752",
+      "updatedAt": "2026-03-11T17:02:16.844Z"
+    },
+    "api/src/user/user/data/user.mapper.ts": {
+      "hash": "4d332806d7b1b0d148605972d1a30f742c0f43f9217c83f1eaa1cd1ea242f30f",
+      "updatedAt": "2026-03-11T17:02:16.844Z"
+    },
+    "api/src/user/user/domain/index.ts": {
+      "hash": "6e39f38262a3b64c81fc4508ec5a992767f35af26a5b57c85213ef468b7a56b3",
+      "updatedAt": "2026-03-11T17:02:16.844Z"
+    },
+    "api/src/user/user/domain/user.errors.ts": {
+      "hash": "200c086a22e1eaea66e67c9bf0ea6ee4ae1c299c7fb9048622ed0875cab7e641",
+      "updatedAt": "2026-03-11T17:02:16.845Z"
+    },
+    "api/src/user/user/domain/user.gateway.ts": {
+      "hash": "1ee332f78d881609ac0ed9b76708748a14803e66887c6ef5d17310581f965e28",
+      "updatedAt": "2026-03-11T17:02:16.845Z"
+    },
+    "api/src/user/user/domain/user.service.ts": {
+      "hash": "9d77bbb85b7ccd9cf0d1adf4e60062b8ce29d1409207ccf0b7d54f17ea886029",
+      "updatedAt": "2026-03-11T17:02:16.845Z"
+    },
+    "api/src/user/user/domain/user.types.ts": {
+      "hash": "c3fa69bdce133ea25eddaf1c662229174a733e1bd79ae06e6417fbdc790b7300",
+      "updatedAt": "2026-03-11T17:02:16.845Z"
+    },
+    "api/src/user/user/dtos/createUser.dto.ts": {
+      "hash": "2048c1344fb65e9c21ffd6b65123be964f6853bac729a226a441356044d16ec8",
+      "updatedAt": "2026-03-11T17:02:16.845Z"
+    },
+    "api/src/user/user/dtos/filterUser.dto.ts": {
+      "hash": "ed2b94ece87be44a9fe33abaa09a16352131c9f1aaa42e75a7170068e13fb729",
+      "updatedAt": "2026-03-11T17:02:16.846Z"
+    },
+    "api/src/user/user/dtos/index.ts": {
+      "hash": "fe1307a0c6ceaae678f607e9c7523bd8d8bf63f19487a655e4b17446cbca0481",
+      "updatedAt": "2026-03-11T17:02:16.846Z"
+    },
+    "api/src/user/user/dtos/updateUser.dto.ts": {
+      "hash": "8f124f03cbaf65d66ea566e1d2a4ffbcd3a0f0c76e5a7dbc9437efe163f7daf3",
+      "updatedAt": "2026-03-11T17:02:16.846Z"
+    },
+    "api/src/user/user/dtos/user.dto.ts": {
+      "hash": "8d2b3ae001f6aade4523c29610237c8783b75dbe860322b458d78bc2f33b4a9f",
+      "updatedAt": "2026-03-11T17:02:16.846Z"
+    },
+    "api/src/user/user/user.controller.ts": {
+      "hash": "37f0cee9e55c1df1fac03c4fff252a6e87ecca29d7c1b7fd2ff661afd8852c9d",
+      "updatedAt": "2026-03-11T17:02:16.846Z"
+    },
+    "api/src/user/user/user.module.ts": {
+      "hash": "203932c74e811b42b0f5615b348e699e10e486157b0b155e0b42bc4f562bb536",
+      "updatedAt": "2026-03-11T17:02:16.847Z"
+    },
+    "api/src/user/user.module.ts": {
+      "hash": "839ee8fd23163b529c8f0950b1bbe2b149ec5f7e6daee8b26efdf2c727307823",
+      "updatedAt": "2026-03-11T17:02:16.847Z"
+    },
+    "app/slices/setup/api/data/index.ts": {
+      "hash": "e122d6174e142c4682d969938025a6abbedc2495e9d36e3194348e2f4f92532d",
+      "updatedAt": "2026-03-11T17:02:16.847Z"
+    },
+    "app/slices/setup/api/data/repositories/api/client/client.gen.ts": {
+      "hash": "2243b9c1b2e398c78f5678b27f2c6e1ff69ca4101004ecb808dcabe758dae0a0",
+      "updatedAt": "2026-03-11T17:02:16.847Z"
+    },
+    "app/slices/setup/api/data/repositories/api/client/index.ts": {
+      "hash": "10d237adce74cfc87181687c67a53098e6879c88958eed03df729267bd999f5a",
+      "updatedAt": "2026-03-11T17:02:16.847Z"
+    },
+    "app/slices/setup/api/data/repositories/api/client/types.gen.ts": {
+      "hash": "a719991b5a38233dd6b11d71b8817805186cda300fc2177fee04ded99b4c8596",
+      "updatedAt": "2026-03-11T17:02:16.848Z"
+    },
+    "app/slices/setup/api/data/repositories/api/client/utils.gen.ts": {
+      "hash": "1b65e8af216422559b462b9ebb274e09598d2f204036f572866a4e784519b1e4",
+      "updatedAt": "2026-03-11T17:02:16.848Z"
+    },
+    "app/slices/setup/api/data/repositories/api/client.gen.ts": {
+      "hash": "edd640d3395dfac9774fa6c20e7493dc771b30f0ceb150099565e5c0ec8b9300",
+      "updatedAt": "2026-03-11T17:02:16.848Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/auth.gen.ts": {
+      "hash": "dd54b258145c9a9b2fb58dce516e13e20075ee726e7fd4a19e04610f96f5d338",
+      "updatedAt": "2026-03-11T17:02:16.848Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/bodySerializer.gen.ts": {
+      "hash": "49a35571a85383083c0b2c83d041df4879905ba8f0e9a7343ca6481b8486d053",
+      "updatedAt": "2026-03-11T17:02:16.849Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/params.gen.ts": {
+      "hash": "39d0889fc384e7731c91ad9b0a6f783bf7feb37d77384dc5a859d5b85a12e092",
+      "updatedAt": "2026-03-11T17:02:16.849Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/pathSerializer.gen.ts": {
+      "hash": "41449b1807cd47b280b2c16e9684ec297b867e11f9f90dd1cb053408b58ed387",
+      "updatedAt": "2026-03-11T17:02:16.849Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/queryKeySerializer.gen.ts": {
+      "hash": "293a195d9a833f829ab172b024d68186d6a19e6b3636f14ae9b9d10858e7bfd0",
+      "updatedAt": "2026-03-11T17:02:16.849Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/serverSentEvents.gen.ts": {
+      "hash": "b75654ca8345aa573f1c10289a542cc52d54faa4e5eb59052eeab953adecb2cc",
+      "updatedAt": "2026-03-11T17:02:16.849Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/types.gen.ts": {
+      "hash": "ffc988692cea2465b06c030de577b1baa4613b40653a45a9f84a56038e723c55",
+      "updatedAt": "2026-03-11T17:02:16.850Z"
+    },
+    "app/slices/setup/api/data/repositories/api/core/utils.gen.ts": {
+      "hash": "d3bcf58152e3f6524693d36c8ef43361851e8420e6ea85c331e19468b1a805a3",
+      "updatedAt": "2026-03-11T17:02:16.850Z"
+    },
+    "app/slices/setup/api/data/repositories/api/index.ts": {
+      "hash": "29ea1c4efba3b9de4a6e4e701d83b54f03e4233c8ccd5cd56f7257a3b7c38569",
+      "updatedAt": "2026-03-11T17:02:16.850Z"
+    },
+    "app/slices/setup/api/data/repositories/api/sdk.gen.ts": {
+      "hash": "fbca3d35a53857bb4d0e077e81b3ed547b64d6edb61560d68a728bd553038f00",
+      "updatedAt": "2026-03-11T17:02:16.850Z"
+    },
+    "app/slices/setup/api/data/repositories/api/types.gen.ts": {
+      "hash": "30043f1e52dd48fee1cf45224fda8a191bd4a66a5c0cacc2deee0c1bcec95c62",
+      "updatedAt": "2026-03-11T17:02:16.851Z"
+    },
+    "app/slices/setup/api/data/repositories/index.ts": {
+      "hash": "dcc390f6690437e874bc53640815938dbc46246123087a515b7d3906559d89cf",
+      "updatedAt": "2026-03-11T17:02:16.851Z"
+    },
+    "app/slices/setup/api/index.ts": {
+      "hash": "3f9c9557bd5d189acc844acf6f0bafdda73ede5191ee5812b9a9bdcf305ce76a",
+      "updatedAt": "2026-03-11T17:02:16.851Z"
+    },
+    "app/slices/setup/api/nuxt.config.ts": {
+      "hash": "8b2b1e6c73514ed2ce76c9c3683429cc76dcd2c53eac341287d1f1e4cf762aa2",
+      "updatedAt": "2026-03-11T17:02:16.851Z"
+    },
+    "app/slices/setup/api/plugins/api.ts": {
+      "hash": "683e969b98260b7082cf211035574e7c3ed1dc853edb880fe68ed48e77a553b7",
+      "updatedAt": "2026-03-11T17:02:16.852Z"
+    },
+    "app/slices/setup/di/container.ts": {
+      "hash": "5319d31a2017de726122f2883768953a3ad61be151f495207da46ef5d7e7bb86",
+      "updatedAt": "2026-03-11T17:02:16.852Z"
+    },
+    "app/slices/setup/di/index.ts": {
+      "hash": "53139ede1eafb0751b9e532498cf4e9f9d20dea6ce99d56e91e60e602b36d901",
+      "updatedAt": "2026-03-11T17:02:16.852Z"
+    },
+    "app/slices/setup/di/nuxt.config.ts": {
+      "hash": "91f2f965d10dff450388046a4b136d8c076a17a7fac0312422c7aa910e59293d",
+      "updatedAt": "2026-03-11T17:02:16.852Z"
+    },
+    "app/slices/setup/di/plugins/di.ts": {
+      "hash": "fb42529c697c642bf13329b4311fd907e5364612e814e1944a2b8521ac6b650a",
+      "updatedAt": "2026-03-11T17:02:16.853Z"
+    },
+    "app/slices/setup/di/types.ts": {
+      "hash": "e478e5f02e661bfae8ccd3074b23d2c3d75f8d542613e10aea5004b65ce777e1",
+      "updatedAt": "2026-03-11T17:02:16.853Z"
+    },
+    "app/slices/setup/error/composables/useError.ts": {
+      "hash": "af69ab612393d98cc08d12fadf052afa5b466c9966245bb2dfb76c80d4c1e688",
+      "updatedAt": "2026-03-11T17:02:16.853Z"
+    },
+    "app/slices/setup/error/nuxt.config.ts": {
+      "hash": "b1676f648b4f292263276167d569730565b1a76f13ea8bd684aac439665cdb3f",
+      "updatedAt": "2026-03-11T17:02:16.853Z"
+    },
+    "app/slices/setup/error/stores/error.ts": {
+      "hash": "cea5796126f919e6dc6b60af6fdc74be9fe3bcf6219965fe1bf7f20ca2a4c404",
+      "updatedAt": "2026-03-11T17:02:16.853Z"
+    },
+    "app/slices/setup/error/utils/handleError.ts": {
+      "hash": "7e00b54fe094ea1ad0f18b64098f36685c562afb9564af22fca66da1427936f1",
+      "updatedAt": "2026-03-11T17:02:16.854Z"
+    },
+    "app/slices/setup/pinia/nuxt.config.ts": {
+      "hash": "62dc6d0a35694a5426ca5848f2ba40a64a94544c7eeb6163dbfff127b70f1f38",
+      "updatedAt": "2026-03-11T17:02:16.854Z"
+    },
+    "app/slices/setup/theme/components/ui/button/Button.vue": {
+      "hash": "5d617b209193e46c9685e8e165eb53188cd62017a78a586490c2984990da2ef0",
+      "updatedAt": "2026-03-11T17:02:16.854Z"
+    },
+    "app/slices/setup/theme/components/ui/button/index.ts": {
+      "hash": "e05d6ff1909cf3fbb3b876c10fb6a2bf64636f70d98629115be510e70545370c",
+      "updatedAt": "2026-03-11T17:02:16.855Z"
+    },
+    "app/slices/setup/theme/components/ui/card/Card.vue": {
+      "hash": "63f1d6d1588e048d24a45425128a0cc763868933680ac61b38132c365c7eb025",
+      "updatedAt": "2026-03-11T17:02:16.855Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardAction.vue": {
+      "hash": "a04c7e9e30d46186d1a2745293bda584d071369f135e21c6fd65062a6a47f272",
+      "updatedAt": "2026-03-11T17:02:16.855Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardContent.vue": {
+      "hash": "06f139064e682d5bfdea38dbf88845f51fd5dfb1291324a418efd41fca795089",
+      "updatedAt": "2026-03-11T17:02:16.855Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardDescription.vue": {
+      "hash": "0a013d59c6f89dfc551caef2fc76339a6cdc637c26d9f21281f2b5dbb4e9cc66",
+      "updatedAt": "2026-03-11T17:02:16.856Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardFooter.vue": {
+      "hash": "0696e391da086db5bcaadb17802dee677e8cc9b671aa31e9de9bf9a492c233c8",
+      "updatedAt": "2026-03-11T17:02:16.856Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardHeader.vue": {
+      "hash": "da500c6c6a2fdc148147bafa47c3b06c98b5628faba81278ccfb957132985b11",
+      "updatedAt": "2026-03-11T17:02:16.856Z"
+    },
+    "app/slices/setup/theme/components/ui/card/CardTitle.vue": {
+      "hash": "00fc313329c4290acff0bb51167f7f6bcf9ec0c474326917436db3cffbccd35d",
+      "updatedAt": "2026-03-11T17:02:16.856Z"
+    },
+    "app/slices/setup/theme/components/ui/card/index.ts": {
+      "hash": "4b49e6713f4c57dbe1437ce8652dc8bc5c1f8f756eebae0ddf3cbe3d38217995",
+      "updatedAt": "2026-03-11T17:02:16.857Z"
+    },
+    "app/slices/setup/theme/components/ui/icon/Icon.vue": {
+      "hash": "3511a59d2390b5cc41ed6ec466e56b39ab01784ebdcdb388ba022e2facee1c84",
+      "updatedAt": "2026-03-11T17:02:16.857Z"
+    },
+    "app/slices/setup/theme/components/ui/icon/icons/CleanSlice.vue": {
+      "hash": "2b02d685a8108eac86695e2af2251daeb5cdbd5c1b69879dc5673884e70f4b5a",
+      "updatedAt": "2026-03-11T17:02:16.857Z"
+    },
+    "app/slices/setup/theme/components/ui/icon/index.ts": {
+      "hash": "c4aeb5ea7765c315021098d058f38126fabce1efff5627c7606f45a97db7c57d",
+      "updatedAt": "2026-03-11T17:02:16.857Z"
+    },
+    "app/slices/setup/theme/components/ui/icon/variants.ts": {
+      "hash": "bfcb0d154c51697bb69e209d9c174be64cad4be62ee7022f555cd47134d70936",
+      "updatedAt": "2026-03-11T17:02:16.858Z"
+    },
+    "app/slices/setup/theme/components/ui/input/Input.vue": {
+      "hash": "8cbc64528a355a0024352ec027550d0a2fee758b9dbf7e2bb3c13e049fadfa70",
+      "updatedAt": "2026-03-11T17:02:16.858Z"
+    },
+    "app/slices/setup/theme/components/ui/input/index.ts": {
+      "hash": "ba728db29f97b894318836d094705b34c0f792352548189703224c694d29ed5b",
+      "updatedAt": "2026-03-11T17:02:16.858Z"
+    },
+    "app/slices/setup/theme/components/ui/label/Label.vue": {
+      "hash": "7d6846319a0f9334ac8ccedb50604555848af7e76200fdd88ecbbfd58d97c05f",
+      "updatedAt": "2026-03-11T17:02:16.858Z"
+    },
+    "app/slices/setup/theme/components/ui/label/index.ts": {
+      "hash": "66c26173360bc6213b18473375aaa22debd4cc493f26e5331a6087851ff03ec7",
+      "updatedAt": "2026-03-11T17:02:16.858Z"
+    },
+    "app/slices/setup/theme/components/ui/terminal/Terminal.vue": {
+      "hash": "43cbdcac19cadeb06cdbcbd8cb6c520c9e6f2dc5ccf251005c52e53b88a35c6f",
+      "updatedAt": "2026-03-11T17:02:16.859Z"
+    },
+    "app/slices/setup/theme/components/ui/terminal/TerminalLine.vue": {
+      "hash": "f39153683883abd37ff04eef0dc4f208e6285de2cd611595fc2f2194c2a2ca9b",
+      "updatedAt": "2026-03-11T17:02:16.859Z"
+    },
+    "app/slices/setup/theme/components/ui/terminal/index.ts": {
+      "hash": "dabbfccbeb72eb47c798ef75b978f5874da752840df50803cb16e5983ef50d95",
+      "updatedAt": "2026-03-11T17:02:16.859Z"
+    },
+    "app/slices/setup/theme/index.ts": {
+      "hash": "38f98af528be95a074670d2a43fb6b821222110e83d50df246a3cf24fbe8ca44",
+      "updatedAt": "2026-03-11T17:02:16.859Z"
+    },
+    "app/slices/setup/theme/nuxt.config.ts": {
+      "hash": "3beafde76f32cfd6d0a472c9bca6dfbb77abf6f57b4a82ef2ec38f93450ed4bc",
+      "updatedAt": "2026-03-11T17:02:16.860Z"
+    },
+    "app/slices/setup/theme/utils/cn.ts": {
+      "hash": "ce4d9a828c0312cf66d0196934e9efd50491887f601dcb12ccda8683118520e9",
+      "updatedAt": "2026-03-11T17:02:16.860Z"
+    },
+    "app/slices/setup/theme/utils/index.ts": {
+      "hash": "5e3c79570eccb0602db63d876aee97d94dc38034b0cd6a1e938195db9fcc9798",
+      "updatedAt": "2026-03-11T17:02:16.860Z"
+    },
+    "app/slices/common/components/common/Footer.vue": {
+      "hash": "a1d729dd5897078b9200b3a1a8c55634d2d86d90b94ce3912820cc38ab102400",
+      "updatedAt": "2026-03-11T17:02:16.861Z"
+    },
+    "app/slices/common/components/common/Header.vue": {
+      "hash": "a68fa1d995dc59c3ad32ec93eaf32a350eed44a41ab23b772e973d8c73edd321",
+      "updatedAt": "2026-03-11T17:02:16.861Z"
+    },
+    "app/slices/common/layouts/default.vue": {
+      "hash": "be06c1f38f5247151d3ac29e1f5092fd479262b386c9263da802153b431e8250",
+      "updatedAt": "2026-03-11T17:02:16.861Z"
+    },
+    "app/slices/common/nuxt.config.ts": {
+      "hash": "bd0e74654cb8dcf2589a73ca08ef0f9d73699a50e788347abc4976796d35c264",
+      "updatedAt": "2026-03-11T17:02:16.862Z"
+    },
+    "app/slices/common/pages/index.vue": {
+      "hash": "9695a772a39d3986d1bed7b8dcba4cdbc72b71c3c9adad39d01f42ef3b673c43",
+      "updatedAt": "2026-03-11T17:02:16.862Z"
+    },
+    "app/slices/user/user/components/user/Provider.vue": {
+      "hash": "9adf1b5a536cf3f434ca90a6349a101253c22abeb4a5babec6fd24c219e9c9c7",
+      "updatedAt": "2026-03-11T17:02:16.862Z"
+    },
+    "app/slices/user/user/components/userList/Provider.vue": {
+      "hash": "80960b620967bfda2e0f75feba5201e9c0d5f84dfa9a452fa2bc81180ac50cf8",
+      "updatedAt": "2026-03-11T17:02:16.863Z"
+    },
+    "app/slices/user/user/nuxt.config.ts": {
+      "hash": "fa500cf889fdddd6ee6af9262fdb55df62f6ddb504528ebd3129d6e821529e5a",
+      "updatedAt": "2026-03-11T17:02:16.863Z"
+    },
+    "app/slices/user/user/pages/users/[id].vue": {
+      "hash": "b8d816565a5835d607307f85a1379b4955d80a1f843a4b4536bde6b42656fb95",
+      "updatedAt": "2026-03-11T17:02:16.863Z"
+    },
+    "app/slices/user/user/pages/users.vue": {
+      "hash": "1db7f647f2aa685dc1445a19cb734e5d84f9657b9b7853cf1df0ff79db68e2bd",
+      "updatedAt": "2026-03-11T17:02:16.863Z"
+    },
+    "app/slices/user/user/stores/user.ts": {
+      "hash": "294f63602b8f198e72ee08cba2ad3070d1a537b9583853a49a662851b98a5ae0",
+      "updatedAt": "2026-03-11T17:02:16.864Z"
+    }
+  }
+}

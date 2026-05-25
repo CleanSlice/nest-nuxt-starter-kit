@@ -21,7 +21,8 @@ export function handleError(error: unknown): void {
     return;
   }
 
-  const message = error instanceof Error ? error.message : 'An unexpected error occurred';
+  const message =
+    error instanceof Error ? error.message : 'An unexpected error occurred';
 
   toast.error('Error', {
     description: message,

@@ -14,6 +14,8 @@ export enum ErrorCodes {
 
   USER_NOT_FOUND = 'USER_NOT_FOUND',
   USER_EXISTS = 'USER_EXISTS',
+  INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+  EMAIL_TAKEN = 'EMAIL_TAKEN',
 }
 
 export interface IErrorResponse {
