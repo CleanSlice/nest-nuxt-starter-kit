@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.4.5",
+  "checkpoint_id": "8b24bf192644",
+  "strategy": "manual-commit",
+  "branch": "feat/dev-tooling-and-refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "api/package-lock.json",
+    "app/package-lock.json",
+    "app/slices/setup/api/api.config.ts",
+    "app/slices/setup/theme/utils/utils.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/8b/24bf192644/0/metadata.json",
+      "transcript": "/8b/24bf192644/0/full.jsonl",
+      "context": "/8b/24bf192644/0/context.md",
+      "content_hash": "/8b/24bf192644/0/content_hash.txt",
+      "prompt": "/8b/24bf192644/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 7679,
+    "cache_read_tokens": 56946,
+    "output_tokens": 436,
+    "api_call_count": 4
+  }
+}
