@@ -5,38 +5,38 @@
 # ============================================
 # Stage 1: Build the API
 # ============================================
-FROM node:22-alpine AS api-builder
+FROM oven/bun:1-alpine AS api-builder
 
 WORKDIR /build/api
 
-COPY api/package*.json ./
-RUN npm ci
+COPY api/package.json api/bun.lock ./
+RUN bun install --frozen-lockfile
 
 COPY api/ ./
 
 # Merge slice schemas, generate Prisma client, build NestJS, generate swagger spec
-RUN npx prisma-import --force && npx prisma generate && npm run build && npm run generate:swagger
+RUN bunx prisma-import --force && bunx prisma generate && bun run build && bun run generate:swagger
 
 # ============================================
 # Stage 2: Build the App
 # ============================================
-FROM node:22-alpine AS app-builder
+FROM oven/bun:1-alpine AS app-builder
 
 WORKDIR /build
 
 # Copy swagger-spec.json for OpenAPI SDK generation
 COPY --from=api-builder /build/api/swagger-spec.json ./api/swagger-spec.json
 
-COPY app/package*.json ./app/
+COPY app/package.json app/bun.lock ./app/
 
 WORKDIR /build/app
-RUN npm ci --legacy-peer-deps
+RUN bun install --frozen-lockfile
 
 COPY app/ ./
 
 ENV NODE_ENV=production
-ENV API_URL=/api
-RUN npm run build
+ENV NUXT_PUBLIC_API_URL=/api
+RUN bun run build
 
 # ============================================
 # Stage 3: Production runtime

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from 'vue';
 
 interface Props {
-  size?: number | string
-  strokeWidth?: number | string
-  class?: HTMLAttributes['class']
+  size?: number | string;
+  strokeWidth?: number | string;
+  class?: HTMLAttributes['class'];
 }
 
 withDefaults(defineProps<Props>(), {
   strokeWidth: 2,
-})
+});
 </script>
 
 <template>

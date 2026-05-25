@@ -26,6 +26,7 @@ async function bootstrap() {
     .setTitle('CleanSlice Starter API')
     .setDescription('NestJS API built with CleanSlice architecture')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);

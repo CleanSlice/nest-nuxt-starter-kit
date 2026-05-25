@@ -10,3 +10,6 @@ coverage/
 # Generated files
 swagger-spec.json
 prisma/schema.prisma
+
+# Docker volumes (PostgreSQL data)
+docker/postgresql/

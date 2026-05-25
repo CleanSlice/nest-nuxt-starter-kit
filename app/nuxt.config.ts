@@ -12,9 +12,7 @@ export default defineNuxtConfig({
   ssr: false,
   app: {
     head: {
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      ],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     },
   },
   modules: ['@nuxtjs/color-mode'],
@@ -23,9 +21,10 @@ export default defineNuxtConfig({
     preference: componentsJson.style === 'dark' ? 'dark' : 'system',
     fallback: componentsJson.style === 'dark' ? 'dark' : 'system',
   },
-  vite: {
-    define: {
-      'process.env': process.env,
+  runtimeConfig: {
+    public: {
+      apiUrl: 'http://localhost:3333',
+      useMocks: 'false',
     },
   },
   devServer: {

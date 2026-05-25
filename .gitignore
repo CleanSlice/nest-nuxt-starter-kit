@@ -1,0 +1,15 @@
+node_modules/
+
+# OS
+.DS_Store
+
+# Editors
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Env
+.env
+.env.local

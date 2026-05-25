@@ -19,8 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
-      "#": ["src/slices"],
-      "#*": ["src/slices/*"]
+      "#setup/*": ["src/slices/setup/*"],
+      "#user/*": ["src/user/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
