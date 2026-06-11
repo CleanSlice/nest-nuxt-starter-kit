@@ -1,27 +1,42 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "resolveJsonModule": true,
+    "module": "CommonJS", // Output module format; NestJS runs on Node/CommonJS
+    "target": "ES2022", // JS language level to compile down to; ES2022 is safe & deterministic on Node 22
+    "moduleResolution": "node", // How imports are resolved; "node" matches Node.js resolution algorithm
+    "esModuleInterop": true, // Allow `import x from "cjs"` interop between CommonJS and ES modules
+    "declaration": true, // Emit .d.ts type declaration files alongside compiled JS
+    "removeComments": true, // Strip comments from the emitted JavaScript output
+
+    "composite": false, // Disable TS project references mode (single project, not needed here)
+    "incremental": true, // Cache build info between runs for faster incremental rebuilds
+    "sourceMap": true, // Generate .map files so debuggers map JS back to TS source
+
+    "skipLibCheck": true, // Skip type-checking of .d.ts files in dependencies (faster builds)
+    "noUnusedLocals": true, // Error on declared but unused local variables
+    "noUnusedParameters": true, // Error on declared but unused function parameters
+    "noImplicitAny": false, // Allow implicit `any` (does not force explicit types everywhere)
+    "strictNullChecks": true, // null/undefined are not assignable to other types unless declared
+
+    "emitDecoratorMetadata": true, // REQUIRED by NestJS: emit type metadata for decorators (DI relies on it)
+    "experimentalDecorators": true, // REQUIRED by NestJS: enable decorator syntax (@Module, @Injectable, ...)
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules without a default export
+    "strictBindCallApply": false, // Do not strictly type-check bind/call/apply argument lists
+    "forceConsistentCasingInFileNames": false, // Do not enforce consistent file-name casing across imports
+    "noFallthroughCasesInSwitch": false, // Allow switch cases to fall through without error
+    "resolveJsonModule": true, // Allow importing .json files as typed modules
+
+    "rootDir": "./", // Root folder of input files (overridden to ./src in tsconfig.build.json)
+    "baseUrl": "./", // Base directory for resolving non-relative module names; required for "paths"
     "paths": {
-      "#setup/*": ["src/slices/setup/*"],
-      "#user/*": ["src/user/*"]
-    }
+      "@/*": ["src/*"] // Path alias: "@/foo/bar" resolves to "src/foo/bar" (used via tsconfig-paths)
+    },
+    "typeRoots": [
+      "./node_modules/@types" // Folders to include ambient type packages from
+    ]
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules", // Never compile dependencies
+    "dist", // Never compile previously emitted build output
+    "uploads" // Skip runtime upload storage folder from the program
+  ]
 }
