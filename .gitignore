@@ -13,3 +13,6 @@ node_modules/
 # Env
 .env
 .env.local
+
+# Claude
+.claude/settings.json

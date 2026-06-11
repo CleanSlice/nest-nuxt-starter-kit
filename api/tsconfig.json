@@ -6,6 +6,7 @@
     "esModuleInterop": true, // Allow `import x from "cjs"` interop between CommonJS and ES modules
     "declaration": true, // Emit .d.ts type declaration files alongside compiled JS
     "removeComments": true, // Strip comments from the emitted JavaScript output
+    "outDir": "./dist", // Emit all compiled output here (keeps src/ free of .js/.d.ts/.map artifacts)
 
     "composite": false, // Disable TS project references mode (single project, not needed here)
     "incremental": true, // Cache build info between runs for faster incremental rebuilds
@@ -25,10 +26,11 @@
     "noFallthroughCasesInSwitch": false, // Allow switch cases to fall through without error
     "resolveJsonModule": true, // Allow importing .json files as typed modules
 
-    "rootDir": "./", // Root folder of input files (overridden to ./src in tsconfig.build.json)
+    "rootDir": "./src", // Root of input files; keeps emitted layout flat under dist/ (e.g. dist/main.js)
     "baseUrl": "./", // Base directory for resolving non-relative module names; required for "paths"
     "paths": {
-      "@/*": ["src/*"] // Path alias: "@/foo/bar" resolves to "src/foo/bar" (used via tsconfig-paths)
+      "#setup/*": ["src/slices/setup/*"], // Subpath alias for the shared "setup" slice (error, response, prisma, health)
+      "#user/*": ["src/user/*"] // Subpath alias for the "user" feature slice (auth, user)
     },
     "typeRoots": [
       "./node_modules/@types" // Folders to include ambient type packages from

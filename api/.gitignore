@@ -8,6 +8,7 @@ coverage/
 .env.prod
 
 # Generated files
+*.tsbuildinfo
 swagger-spec.json
 prisma/schema.prisma
 
