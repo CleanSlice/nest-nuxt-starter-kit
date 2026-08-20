@@ -86,7 +86,7 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^#setup/(.*)$": "<rootDir>/slices/setup/$1",
-      "^#user/(.*)$": "<rootDir>/user/$1"
+      "^#user/(.*)$": "<rootDir>/slices/user/$1"
     }
   }
 }
