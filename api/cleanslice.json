@@ -1,0 +1,8 @@
+{
+  "srcRoot": "src",
+  "slicesRoot": "src/slices",
+  "groups": [
+    "setup",
+    { "name": "user", "path": "src/user" }
+  ]
+}
