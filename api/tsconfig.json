@@ -30,7 +30,7 @@
     "baseUrl": "./", // Base directory for resolving non-relative module names; required for "paths"
     "paths": {
       "#setup/*": ["src/slices/setup/*"], // Subpath alias for the shared "setup" slice (error, response, prisma, health)
-      "#user/*": ["src/user/*"] // Subpath alias for the "user" feature slice (auth, user)
+      "#user/*": ["src/slices/user/*"] // Subpath alias for the "user" feature slice (auth, user)
     },
     "typeRoots": [
       "./node_modules/@types" // Folders to include ambient type packages from

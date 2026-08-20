@@ -31,6 +31,9 @@ nest-nuxt-starter-kit/
 │   │   └── main.ts
 │   ├── prisma/
 │   │   └── schema.prisma        # Auto-generated (do not edit)
+│   ├── scripts/
+│   │   └── cleanslice-check.cjs # Boundary check (runs on `npm run dev`)
+│   ├── cleanslice.config.cjs    # Slice groups, lowest first
 │   ├── docker-compose.yml
 │   ├── .env.example
 │   └── tsconfig.json
@@ -134,6 +137,35 @@ Presentation  →  Domain  →  Data
 ```
 
 Dependencies always point inward. The domain layer has no knowledge of frameworks, databases, or UI.
+
+### Boundary Check
+
+Those rules are invisible to the compiler — TypeScript accepts a controller
+that injects a gateway from a neighbouring slice — so they are checked by a
+program instead of by review:
+
+```bash
+npm run check     # also runs automatically before `npm run dev`
+```
+
+```
+cleanslice-check: OK — 2 group(s) [setup -> user], 64 modules, 296 ms
+```
+
+Three rules: groups depend only downward, no cycles anywhere, and inside a
+slice the presentation and domain layers never touch `data/`. The group order
+is declared in `api/cleanslice.config.cjs`, so the script itself is the same
+in every CleanSlice project:
+
+```javascript
+module.exports = {
+  groups: ['setup', 'user'],   // lowest first — the order IS the rule
+};
+```
+
+What the check does NOT catch is written down: CleanSlice MCP,
+`02-standards/boundary-check.md`. A green run means "none of these three rules
+is broken", never "this code is CleanSlice".
 
 ### Gateway Pattern
 
@@ -338,7 +370,8 @@ Nuxt auto-imports Vue APIs, composables, components, and Pinia stores — no man
 
 | Script | Purpose |
 |--------|---------|
-| `npm run dev` | Start dev server with hot reload |
+| `npm run dev` | Start dev server with hot reload (runs `check` first) |
+| `npm run check` | CleanSlice boundary check — groups, cycles, slice layers |
 | `npm run docker` | Start Docker services (PostgreSQL) |
 | `npm run migrate` | Merge Prisma schemas + run migrations |
 | `npm run generate` | Merge Prisma schemas only |
