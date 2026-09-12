@@ -139,7 +139,7 @@ const setupSteps = [
 
           <!-- Terminal -->
           <Terminal class="mt-12 w-full max-w-md">
-            <TerminalLine command="npx create-cleanslice my-app" />
+            <TerminalLine command="bunx create-cleanslice my-app" />
           </Terminal>
         </div>
       </div>

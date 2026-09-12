@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "build:api": "openapi-ts",
-    "predev": "npm run build:api",
+    "predev": "bun run build:api",
     "dev": "nuxt dev",
-    "build": "npm run build:api && nuxt build",
+    "build": "bun run build:api && nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint \"slices/**/*.{ts,vue}\" \"*.{ts,vue}\" --fix",

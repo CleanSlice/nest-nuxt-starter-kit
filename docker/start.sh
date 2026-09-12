@@ -3,7 +3,10 @@ set -e
 
 echo "Running database migrations..."
 cd /app/api
-npx prisma migrate deploy
+# The runner stage is a plain Node image (no Bun), so call the binary that
+# `bun install --frozen-lockfile` resolved into node_modules rather than a
+# package-manager runner.
+node_modules/.bin/prisma migrate deploy
 
 echo "Starting API on port 3333..."
 NODE_ENV=production PORT=3333 node dist/main.js &
