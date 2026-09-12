@@ -408,6 +408,20 @@ JWT_SECRET=change-me-in-production
 JWT_EXPIRES_IN=7d
 ```
 
+### In a deployed container
+
+The image reads these from the environment, and the api **exits on boot**
+without them:
+
+| Variable | Read by | Consequence when missing |
+|----------|---------|--------------------------|
+| `DATABASE_URL` | Prisma, both at `start.sh` migration time and at runtime | migrations fail, api never starts |
+| `JWT_SECRET` | `JwtStrategy` via `getOrThrow` | `Configuration key "JWT_SECRET" does not exist` — api exits |
+
+A missing `JWT_SECRET` is quiet from the outside. Nuxt keeps serving pages on
+`/`, and only `/health` and `/api/*` return 502 — nginx is up, the api behind
+it is not.
+
 ## Key Principles
 
 - **All code lives in `slices/`** — no root-level `components/`, `pages/`, or `services/`
