@@ -22,7 +22,8 @@ nest-nuxt-starter-kit/
 │   │   │   ├── setup/
 │   │   │   │   ├── prisma/      # Database ORM (global)
 │   │   │   │   ├── error/       # Error handling interceptors
-│   │   │   │   └── health/      # Health check endpoint
+│   │   │   │   ├── health/      # Health check endpoint
+│   │   │   │   └── mail/        # Email sending (SMTP; Mailpit locally)
 │   │   │   └── user/            # Example feature slice
 │   │   │       ├── domain/      # Types, abstract gateway
 │   │   │       ├── data/        # Concrete gateway, mapper
@@ -91,7 +92,7 @@ cd my-project
 cd api
 cp .env.example .env.dev
 npm install
-docker compose up -d           # Starts PostgreSQL
+docker compose up -d           # Starts PostgreSQL + Mailpit (inbox: http://localhost:4232)
 npm run migrate                # Runs Prisma migrations
 npm run start:dev              # http://localhost:3000
                                # Swagger UI: http://localhost:3000/api
@@ -203,6 +204,7 @@ Setup slices provide shared infrastructure. They are pre-configured in this star
 | `prisma/` | Database ORM — global `PrismaService` |
 | `error/` | Error handling + response interceptors |
 | `health/` | `GET /health` endpoint |
+| `mail/` | Email sending behind `IMailGateway`; Mailpit locally |
 
 ### Frontend (`app/slices/setup/`)
 
@@ -339,7 +341,7 @@ Nuxt auto-imports Vue APIs, composables, components, and Pinia stores — no man
 | Script | Purpose |
 |--------|---------|
 | `npm run dev` | Start dev server with hot reload |
-| `npm run docker` | Start Docker services (PostgreSQL) |
+| `npm run docker` | Start Docker services (PostgreSQL, Mailpit) |
 | `npm run migrate` | Merge Prisma schemas + run migrations |
 | `npm run generate` | Merge Prisma schemas only |
 | `npm run studio` | Open Prisma Studio (DB browser) |
@@ -368,6 +370,12 @@ CORS_ORIGIN=http://localhost:3001
 # JWT
 JWT_SECRET=change-me-in-production
 JWT_EXPIRES_IN=7d
+
+# Email (Docker: Mailpit catches everything, inbox at http://localhost:4232)
+SMTP_HOST=localhost
+SMTP_PORT=4231
+SMTP_SECURE=false
+SMTP_FROM=CleanSlice <noreply@cleanslice.local>
 ```
 
 ## Key Principles

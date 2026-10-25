@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from '#setup/prisma';
 import { SetupModule } from '#setup/setup.module';
 import { HealthModule } from '#setup/health/health.module';
+import { MailModule } from '#setup/mail';
 import { UserSliceModule } from '#user/user.module';
 
 @Module({
@@ -17,6 +18,7 @@ import { UserSliceModule } from '#user/user.module';
     PrismaModule,
     SetupModule,
     HealthModule,
+    MailModule,
     UserSliceModule,
   ],
 })
