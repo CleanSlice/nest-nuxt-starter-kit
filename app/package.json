@@ -6,7 +6,7 @@
   "scripts": {
     "build:api": "openapi-ts",
     "predev": "npm run build:api",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 4226",
     "build": "npm run build:api && nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
