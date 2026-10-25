@@ -3,6 +3,9 @@
 // @layer:domain
 // @type:types
 
+/** Primary ID prefix of the User entity: `user-<adjective>-<noun>-<12 Crockford>`. */
+export const USER_ID_PREFIX = 'user';
+
 export enum RoleTypes {
   ADMIN = 'ADMIN',
   USER = 'USER',

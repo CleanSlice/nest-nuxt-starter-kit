@@ -7,6 +7,7 @@ import { PrismaModule } from '#setup/prisma';
 import { SetupModule } from '#setup/setup.module';
 import { HealthModule } from '#setup/health/health.module';
 import { MailModule } from '#setup/mail';
+import { IdModule } from '#setup/id';
 import { UserSliceModule } from '#user/user.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { UserSliceModule } from '#user/user.module';
     PrismaModule,
     SetupModule,
     HealthModule,
+    IdModule,
     MailModule,
     UserSliceModule,
   ],

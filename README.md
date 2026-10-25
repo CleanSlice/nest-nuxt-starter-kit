@@ -23,6 +23,7 @@ nest-nuxt-starter-kit/
 │   │   │   │   ├── prisma/      # Database ORM (global)
 │   │   │   │   ├── error/       # Error handling interceptors
 │   │   │   │   ├── health/      # Health check endpoint
+│   │   │   │   ├── id/          # Primary IDs: formatId(), withIdRetry(), @IsEntityId()
 │   │   │   │   └── mail/        # Email sending (SMTP; Mailpit locally)
 │   │   │   └── user/            # Example feature slice
 │   │   │       ├── domain/      # Types, abstract gateway
@@ -204,6 +205,7 @@ Setup slices provide shared infrastructure. They are pre-configured in this star
 | `prisma/` | Database ORM — global `PrismaService` |
 | `error/` | Error handling + response interceptors |
 | `health/` | `GET /health` endpoint |
+| `id/` | Primary IDs: `formatId(prefix)` + `withIdRetry()` in gateways, `@IsEntityId()` / `EntityIdPipe` at the boundary |
 | `mail/` | Email sending behind `IMailGateway`; Mailpit locally |
 
 ### Frontend (`app/slices/setup/`)
@@ -251,7 +253,7 @@ Add the Prisma model at the slice root:
 ```prisma
 // api/src/slices/project/project.prisma
 model Project {
-  id          String   @id @default(cuid())
+  id          String   @id // minted by the gateway: formatId('project'), never @default(uuid()/cuid())
   name        String
   description String?
   createdAt   DateTime @default(now())
@@ -382,6 +384,7 @@ SMTP_FROM=CleanSlice <noreply@cleanslice.local>
 
 - **All code lives in `slices/`** — no root-level `components/`, `pages/`, or `services/`
 - **Gateway, not Repository** — Prisma IS the repository, the gateway provides the abstraction
+- **One ID format** — `<prefix>-<adjective>-<noun>-<12 Crockford>`, minted by the gateway with `formatId()`; never `@default(uuid())` / `cuid()`
 - **Abstract classes as DI tokens** — `IUserGateway` is both the type and the injection token
 - **Provider.vue in every component folder** — handles data fetching, children receive props
 - **Pinia stores for state** — in `stores/`, not `composables/`
