@@ -3,8 +3,8 @@
 // @layer:domain
 // @type:gateway
 
-import { IMailMessage, IMailResult } from './mail.types';
+import { IOutboundMail, IMailResult } from './mail.types';
 
 export abstract class IMailGateway {
-  abstract send(message: IMailMessage): Promise<IMailResult>;
+  abstract send(message: IOutboundMail): Promise<IMailResult>;
 }

@@ -19,22 +19,22 @@ claude mcp add --scope user --transport http cleanslice https://mcp.cleanslice.o
 
 | Skill | Purpose | Install Command |
 |-------|---------|-----------------|
-| **shadcn-vue** | UI component library guidance (Reka UI, Tailwind, dark mode) | `npx skills add noartem/skills --skill shadcn-vue` |
-| **cleanslice** | Architecture patterns (vertical slices, gateway, Provider.vue) | `npx skills add CleanSlice/skills --skill cleanslice` |
-| **conventional-commits** | Conventional Commits standard for git messages | `npx skills add CleanSlice/skills --skill conventional-commits` |
+| **shadcn-vue** | UI component library guidance (Reka UI, Tailwind, dark mode) | `bunx skills add noartem/skills --skill shadcn-vue` |
+| **cleanslice** | Architecture patterns (vertical slices, gateway, Provider.vue) | `bunx skills add CleanSlice/skills --skill cleanslice` |
+| **conventional-commits** | Conventional Commits standard for git messages | `bunx skills add CleanSlice/skills --skill conventional-commits` |
 
 Run these commands in order:
 
 ```bash
-npx skills add noartem/skills --skill shadcn-vue
+bunx skills add noartem/skills --skill shadcn-vue
 ```
 
 ```bash
-npx skills add CleanSlice/skills --skill cleanslice
+bunx skills add CleanSlice/skills --skill cleanslice
 ```
 
 ```bash
-npx skills add CleanSlice/skills --skill conventional-commits
+bunx skills add CleanSlice/skills --skill conventional-commits
 ```
 
 ## Step 3: Restart Claude Code

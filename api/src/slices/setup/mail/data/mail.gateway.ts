@@ -5,7 +5,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { IMailGateway } from '../domain/mail.gateway';
-import { IMailMessage, IMailResult } from '../domain/mail.types';
+import { IOutboundMail, IMailResult } from '../domain/mail.types';
 import { MailDeliveryError } from '../domain/mail.errors';
 import { SmtpRepository } from './repositories/smtp/smtp.repository';
 import { MailMapper } from './mail.mapper';
@@ -24,7 +24,7 @@ export class SmtpMailGateway extends IMailGateway {
     super();
   }
 
-  async send(message: IMailMessage): Promise<IMailResult> {
+  async send(message: IOutboundMail): Promise<IMailResult> {
     try {
       const result = await this.smtp.send(this.mapper.toSmtp(message));
       return this.mapper.toResult(result);

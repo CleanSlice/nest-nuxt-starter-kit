@@ -33,6 +33,9 @@ nest-nuxt-starter-kit/
 │   │   └── main.ts
 │   ├── prisma/
 │   │   └── schema.prisma        # Auto-generated (do not edit)
+│   ├── scripts/
+│   │   └── cleanslice-check.cjs # Boundary check (runs on `bun run dev`)
+│   ├── cleanslice.config.cjs    # Slice groups, lowest first
 │   ├── docker-compose.yml
 │   ├── .env.example
 │   └── tsconfig.json
@@ -58,9 +61,9 @@ nest-nuxt-starter-kit/
 
 ## Prerequisites
 
-- Node.js 24+ (see `.nvmrc`)
+- [Bun](https://bun.sh/) — the package manager for everything here
+- Node.js 24+ (see `.nvmrc`) — still the production runtime for the api
 - Docker & Docker Compose
-- npm
 
 ## AI Development Skills (Claude Code)
 
@@ -75,9 +78,9 @@ This starter kit includes a `/setup` skill that installs the required agent skil
 Run `/setup` in Claude Code to install all skills. You can also install them manually:
 
 ```bash
-npx playbooks add skill noartem/skills --skill shadcn-vue
-npx skills add CleanSlice/skills --skill cleanslice
-npx skills add CleanSlice/skills --skill conventional-commits
+bunx playbooks add skill noartem/skills --skill shadcn-vue
+bunx skills add CleanSlice/skills --skill cleanslice
+bunx skills add CleanSlice/skills --skill conventional-commits
 ```
 
 Restart the Claude Code session after installing to activate the skills.
@@ -92,17 +95,17 @@ cd my-project
 # 2. Start the API
 cd api
 cp .env.example .env.dev
-npm install
+bun install
 docker compose up -d           # Starts PostgreSQL + Mailpit (inbox: http://localhost:4232)
-npm run migrate                # Runs Prisma migrations
-npm run start:dev              # http://localhost:3000
+bun run migrate                # Runs Prisma migrations
+bun run dev                    # http://localhost:3000
                                # Swagger UI: http://localhost:3000/api
 
 # 3. Start the App (new terminal)
 cd app
-npm install
-npm run build:api              # Generates typed SDK from Swagger spec
-npm run dev                    # http://localhost:3001
+bun install
+bun run build:api              # Generates typed SDK from Swagger spec
+bun run dev                    # http://localhost:3001
 
 # 4. Install AI development skills (Claude Code)
 /setup                         # Installs CleanSlice + shadcn-vue skills
@@ -136,6 +139,35 @@ Presentation  →  Domain  →  Data
 ```
 
 Dependencies always point inward. The domain layer has no knowledge of frameworks, databases, or UI.
+
+### Boundary Check
+
+Those rules are invisible to the compiler — TypeScript accepts a controller
+that injects a gateway from a neighbouring slice — so they are checked by a
+program instead of by review:
+
+```bash
+bun run check     # also runs automatically before `bun run dev`
+```
+
+```
+cleanslice-check: OK — 2 group(s) [setup -> user], 64 modules, 296 ms
+```
+
+Three rules: groups depend only downward, no cycles anywhere, and inside a
+slice the presentation and domain layers never touch `data/`. The group order
+is declared in `api/cleanslice.config.cjs`, so the script itself is the same
+in every CleanSlice project:
+
+```javascript
+module.exports = {
+  groups: ['setup', 'user'],   // lowest first — the order IS the rule
+};
+```
+
+What the check does NOT catch is written down: CleanSlice MCP,
+`02-standards/boundary-check.md`. A green run means "none of these three rules
+is broken", never "this code is CleanSlice".
 
 ### Gateway Pattern
 
@@ -278,8 +310,8 @@ export class AppModule {}
 Run migration and regenerate:
 
 ```bash
-npm run migrate                # Merges schemas + creates migration
-npm run start:dev              # Restart to update swagger-spec.json
+bun run migrate                # Merges schemas + creates migration
+bun run dev                    # Restart to update swagger-spec.json
 ```
 
 ### 2. Frontend
@@ -313,7 +345,7 @@ app/slices/project/
 Regenerate the API SDK:
 
 ```bash
-npm run build:api              # Generates typed services from Swagger
+bun run build:api              # Generates typed services from Swagger
 ```
 
 The slice auto-registers via `registerSlices.ts` — no manual config needed.
@@ -336,26 +368,32 @@ import { cn } from '#theme/utils/cn';
 
 Nuxt auto-imports Vue APIs, composables, components, and Pinia stores — no manual imports needed for those.
 
-## NPM Scripts
+## Scripts
+
+Every command here runs through **Bun** — `bun install`, `bun run <script>`,
+`bunx <cli>`. The lockfile is `bun.lock`; there is no `package-lock.json` in
+this repo and adding one back would give the project two disagreeing
+dependency graphs.
 
 ### API
 
 | Script | Purpose |
 |--------|---------|
-| `npm run dev` | Start dev server with hot reload |
-| `npm run docker` | Start Docker services (PostgreSQL, Mailpit) |
-| `npm run migrate` | Merge Prisma schemas + run migrations |
-| `npm run generate` | Merge Prisma schemas only |
-| `npm run studio` | Open Prisma Studio (DB browser) |
-| `npm run build` | Production build |
+| `bun run dev` | Start dev server with hot reload (runs `check` first) |
+| `bun run check` | CleanSlice boundary check — groups, cycles, slice layers |
+| `bun run docker` | Start Docker services (PostgreSQL, Mailpit) |
+| `bun run migrate` | Merge Prisma schemas + run migrations |
+| `bun run generate` | Merge Prisma schemas only |
+| `bun run studio` | Open Prisma Studio (DB browser) |
+| `bun run build` | Production build |
 
 ### App
 
 | Script | Purpose |
 |--------|---------|
-| `npm run dev` | Start Nuxt dev server |
-| `npm run build:api` | Regenerate API SDK from Swagger spec |
-| `npm run build` | Production build (regenerates SDK first) |
+| `bun run dev` | Start Nuxt dev server |
+| `bun run build:api` | Regenerate API SDK from Swagger spec |
+| `bun run build` | Production build (regenerates SDK first) |
 
 ## Environment Variables
 
@@ -379,6 +417,20 @@ SMTP_PORT=4231
 SMTP_SECURE=false
 SMTP_FROM=CleanSlice <noreply@cleanslice.local>
 ```
+
+### In a deployed container
+
+The image reads these from the environment, and the api **exits on boot**
+without them:
+
+| Variable | Read by | Consequence when missing |
+|----------|---------|--------------------------|
+| `DATABASE_URL` | Prisma, both at `start.sh` migration time and at runtime | migrations fail, api never starts |
+| `JWT_SECRET` | `JwtStrategy` via `getOrThrow` | `Configuration key "JWT_SECRET" does not exist` — api exits |
+
+A missing `JWT_SECRET` is quiet from the outside. Nuxt keeps serving pages on
+`/`, and only `/health` and `/api/*` return 502 — nginx is up, the api behind
+it is not.
 
 ## Key Principles
 

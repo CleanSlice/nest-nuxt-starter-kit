@@ -14,6 +14,11 @@ export interface IMailMessage {
   bcc?: string | string[];
 }
 
+/** What reaches the gateway: the service has already resolved `from`. */
+export interface IOutboundMail extends IMailMessage {
+  from: string;
+}
+
 export interface IMailResult {
   messageId: string;
   accepted: string[];

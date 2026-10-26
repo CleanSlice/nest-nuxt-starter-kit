@@ -4,12 +4,12 @@
 // @type:mapper
 
 import { Injectable } from '@nestjs/common';
-import { IMailMessage, IMailResult } from '../domain/mail.types';
+import { IOutboundMail, IMailResult } from '../domain/mail.types';
 import { ISmtpMessage, ISmtpSendResult } from './repositories/smtp/smtp.types';
 
 @Injectable()
 export class MailMapper {
-  toSmtp(message: IMailMessage): ISmtpMessage {
+  toSmtp(message: IOutboundMail): ISmtpMessage {
     return {
       from: message.from,
       to: message.to,

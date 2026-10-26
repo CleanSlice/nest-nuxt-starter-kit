@@ -5,7 +5,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { createTransport, Transporter } from 'nodemailer';
+import { createTransport, SMTPSentMessageInfo, Transporter } from 'nodemailer';
 import { ISmtpConfig, ISmtpMessage, ISmtpSendResult } from './smtp.types';
 
 const toAddress = (entry: string | { address: string }): string =>
@@ -18,7 +18,7 @@ const toAddress = (entry: string | { address: string }): string =>
  */
 @Injectable()
 export class SmtpRepository {
-  private readonly transporter: Transporter;
+  private readonly transporter: Transporter<SMTPSentMessageInfo>;
 
   constructor(config: ConfigService) {
     const smtp = SmtpRepository.readConfig(config);
