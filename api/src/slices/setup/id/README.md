@@ -23,18 +23,21 @@ suffix is **nanoid 3.3.11** `customRandom`; all bytes from Node
 
 The suffix supplies 60 bits, the words a further ~16. Neither is a uniqueness
 guarantee: the database primary key is. `withIdRetry` repeats the entire write
-at most five times, only for a Prisma `P2002` whose target is exactly `['id']`;
-mint inside the callback so every attempt is a new candidate:
+at most five times, only for a unique violation (SQLSTATE `23505`, read by
+`isUniqueViolation` in `setup/prisma/prisma.errors.ts`) on exactly the `id`
+key; mint inside the callback so every attempt is a new candidate:
 
 ```typescript
-const user = await withIdRetry(() =>
-  this.prisma.user.create({ data: { id: formatId(USER_ID_PREFIX), ...createData } }),
+const user = await withIdRetry(
+  () => this.users.create({ id: formatId(USER_ID_PREFIX), ...createData }),
+  this.prisma.inTransaction,
 );
 ```
 
-Do not wrap a single statement inside an already aborted transaction (pass
-`insideTransaction = true` from within `$transaction`; the owner of the
-transaction repeats the whole unit of work), and never repeat external effects.
+Inside a `prisma.transaction(...)` a failed statement aborts the whole
+PostgreSQL transaction, so `withIdRetry` must not repeat it there: pass
+`this.prisma.inTransaction` as the second argument and the owner of the
+transaction repeats the whole unit of work. Never repeat external effects.
 
 ## Prefixes
 

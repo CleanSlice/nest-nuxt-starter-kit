@@ -6,7 +6,7 @@ Full-stack starter kit built on the **CleanSlice architecture** — vertical sli
 
 | Layer | Technology |
 |-------|-----------|
-| Backend | NestJS, Prisma, PostgreSQL |
+| Backend | NestJS, Prisma 8, PostgreSQL |
 | Frontend | Nuxt 3, Vue 3, Pinia |
 | Styling | Tailwind CSS, shadcn-vue |
 | API Contract | Swagger/OpenAPI, @hey-api/openapi-ts |
@@ -32,9 +32,12 @@ nest-nuxt-starter-kit/
 │   │   ├── app.module.ts
 │   │   └── main.ts
 │   ├── prisma/
-│   │   └── schema.prisma        # Auto-generated (do not edit)
+│   │   └── migrations/          # Prisma 8 migration plans (TypeScript), forward only
+│   ├── generated/prisma/        # Emitted contract (`prisma contract emit`, gitignored)
 │   ├── scripts/
-│   │   └── cleanslice-check.cjs # Boundary check (runs on `bun run dev`)
+│   │   ├── cleanslice-check.cjs # Boundary check (runs on `bun run dev`)
+│   │   └── migrate.mjs          # The one migration entrypoint (dev, tests, Docker)
+│   ├── prisma.config.ts         # Prisma 8: globs src/slices/**/*.prisma
 │   ├── cleanslice.config.cjs    # Slice groups, lowest first
 │   ├── docker-compose.yml
 │   ├── .env.example
@@ -97,19 +100,26 @@ cd api
 cp .env.example .env.dev
 bun install
 docker compose up -d           # Starts PostgreSQL + Mailpit (inbox: http://localhost:4232)
-bun run migrate                # Runs Prisma migrations
-bun run dev                    # http://localhost:3000
-                               # Swagger UI: http://localhost:3000/api
+bun run db:deploy              # Applies the Prisma 8 migrations (bun run dev does it too)
+bun run dev                    # http://localhost:4229
+                               # Swagger UI: http://localhost:4229/api
 
 # 3. Start the App (new terminal)
 cd app
 bun install
 bun run build:api              # Generates typed SDK from Swagger spec
-bun run dev                    # http://localhost:3001
+bun run dev                    # http://localhost:4226
 
 # 4. Install AI development skills (Claude Code)
 /setup                         # Installs CleanSlice + shadcn-vue skills
 ```
+
+The api is on **Prisma 8**: no assembled `schema.prisma`, no `prisma generate`.
+Each slice owns its `*.prisma`; `bun install` emits the contract to
+`generated/prisma`. A local database built by the earlier Prisma 6 kit cannot
+take the Prisma 8 migrations: reset it (`docker compose down && rm -rf
+docker/postgresql`) or follow
+[Upgrading a Prisma 6 project](https://github.com/CleanSlice/mcp/blob/main/docs/01-setup/api-prisma.md#upgrading-a-prisma-6-project).
 
 ## Architecture
 
@@ -189,9 +199,13 @@ export class UserGateway extends IUserGateway {
     private readonly mapper: UserMapper,
   ) { super(); }
 
+  private get users() {
+    return this.prisma.db.public.User;
+  }
+
   async findById(id: string): Promise<IUserData | null> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
-    return user ? this.mapper.toDomain(user) : null;
+    const user = await this.users.first({ id });
+    return user ? this.mapper.toData(user) : null;
   }
 }
 ```
@@ -283,15 +297,18 @@ api/src/slices/project/
 Add the Prisma model at the slice root:
 
 ```prisma
+// use prisma-8
 // api/src/slices/project/project.prisma
 model Project {
-  id          String   @id // minted by the gateway: formatId('project'), never @default(uuid()/cuid())
+  id          String  @id // minted by the gateway: formatId('project'), never @default(uuid()/cuid())
   name        String
   description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   TimestamptzJsDate(3) @default(now())
+  updatedAt   temporal.timestamptzJsDate(3, onCreate: now, onUpdate: now)
 }
 ```
+
+`prisma.config.ts` picks the file up by its glob: there is no schema to assemble.
 
 Register in `app.module.ts`:
 
@@ -307,12 +324,18 @@ import { ProjectModule } from './slices/project/project.module';
 export class AppModule {}
 ```
 
-Run migration and regenerate:
+Plan the migration, point the deploy ref at it, apply:
 
 ```bash
-bun run migrate                # Merges schemas + creates migration
-bun run dev                    # Restart to update swagger-spec.json
+bun run prisma:emit                         # Emits the contract (types for the gateway)
+bun run db:plan -- --name project           # Writes prisma/migrations/app/<timestamp>_project
+                                            # Review its ops.json / the DDL preview
+bunx prisma migration ref set deploy <hash> # The "to" hash the plan printed
+bun run db:deploy                           # Applies it (bun run dev does this too)
 ```
+
+The full workflow, raw SQL, transactions and upgrading a Prisma 6 project:
+[Prisma setup](https://github.com/CleanSlice/mcp/blob/main/docs/01-setup/api-prisma.md).
 
 ### 2. Frontend
 
@@ -355,8 +378,8 @@ The slice auto-registers via `registerSlices.ts` — no manual config needed.
 ### Backend (`#` prefix via tsconfig paths)
 
 ```typescript
-import { PrismaService } from '#/setup/prisma';
-import { IUserData } from '#/user/domain';
+import { PrismaService } from '#setup/prisma';
+import { IUserData } from '#user/user/domain';
 ```
 
 ### Frontend (`#` prefix via nuxt.config alias)
@@ -382,9 +405,12 @@ dependency graphs.
 | `bun run dev` | Start dev server with hot reload (runs `check` first) |
 | `bun run check` | CleanSlice boundary check — groups, cycles, slice layers |
 | `bun run docker` | Start Docker services (PostgreSQL, Mailpit) |
-| `bun run migrate` | Merge Prisma schemas + run migrations |
-| `bun run generate` | Merge Prisma schemas only |
-| `bun run studio` | Open Prisma Studio (DB browser) |
+| `bun run db:deploy` | Apply the Prisma 8 migrations (`scripts/migrate.mjs`) |
+| `bun run db:plan -- --name <what>` | Plan a migration from the `deploy` ref to the current contract |
+| `bun run db:status` / `db:verify` | Migration status / check the database against the contract |
+| `bun run prisma:emit` | Emit the contract to `generated/prisma` (also postinstall, build, dev, test) |
+| `bun run typecheck` | Emit the contract, then `tsc --noEmit` |
+| `bun run test` | Unit and Postgres-backed specs (rebuilds the `cleanslice-api-test` database) |
 | `bun run build` | Production build |
 
 ### App
@@ -425,7 +451,7 @@ without them:
 
 | Variable | Read by | Consequence when missing |
 |----------|---------|--------------------------|
-| `DATABASE_URL` | Prisma, both at `start.sh` migration time and at runtime | migrations fail, api never starts |
+| `DATABASE_URL` | Prisma, both at `start.sh` migration time (`scripts/migrate.mjs`) and at runtime | migrations fail, api never starts |
 | `JWT_SECRET` | `JwtStrategy` via `getOrThrow` | `Configuration key "JWT_SECRET" does not exist` — api exits |
 
 A missing `JWT_SECRET` is quiet from the outside. Nuxt keeps serving pages on

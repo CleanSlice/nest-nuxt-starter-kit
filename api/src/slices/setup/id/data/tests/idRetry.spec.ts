@@ -1,12 +1,18 @@
-import { Prisma } from '@prisma/client';
 import { withIdRetry, ID_MAX_ATTEMPTS } from '../idRetry';
 
-/** A unique violation the way Prisma 6 surfaces one on PostgreSQL. */
+/**
+ * A unique violation the way Prisma 8 surfaces one on PostgreSQL: the
+ * database's SQLSTATE, and the pg driver error with the key in `detail`
+ * down the `cause` chain.
+ */
 const conflict = (target: string[]) =>
-  new Prisma.PrismaClientKnownRequestError(
-    'Unique constraint failed on the fields: (`id`)',
-    { code: 'P2002', clientVersion: 'test', meta: { target } },
-  );
+  Object.assign(new Error('duplicate key value violates unique constraint'), {
+    sqlState: '23505',
+    cause: Object.assign(new Error('duplicate key'), {
+      code: '23505',
+      detail: `Key (${target.map((column) => `"${column}"`).join(', ')})=(x) already exists.`,
+    }),
+  });
 
 describe('primary identity collision retry', () => {
   it('repeats the whole factory after a primary-key collision', async () => {
@@ -42,18 +48,20 @@ describe('primary identity collision retry', () => {
     expect(work).toHaveBeenCalledTimes(1);
   });
 
-  it('never retries a failure that merely resembles Prisma', async () => {
+  it('never retries a Prisma 6 error shape', async () => {
     const lookalike = { code: 'P2002', meta: { target: ['id'] } };
     const work = jest.fn<Promise<string>, []>().mockRejectedValue(lookalike);
     await expect(withIdRetry(work)).rejects.toBe(lookalike);
     expect(work).toHaveBeenCalledTimes(1);
   });
 
-  it('never retries a different Prisma error', async () => {
-    const error = new Prisma.PrismaClientKnownRequestError('not found', {
-      code: 'P2025',
-      clientVersion: 'test',
-    });
+  it('never retries a different database error', async () => {
+    const error = Object.assign(
+      new Error('insert or update violates foreign key'),
+      {
+        sqlState: '23503',
+      },
+    );
     const work = jest.fn<Promise<string>, []>().mockRejectedValue(error);
     await expect(withIdRetry(work)).rejects.toBe(error);
     expect(work).toHaveBeenCalledTimes(1);

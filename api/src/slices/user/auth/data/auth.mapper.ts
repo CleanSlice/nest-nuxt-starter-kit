@@ -4,18 +4,18 @@
 // @type:mapper
 
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import type { PrismaCreate, PrismaRow } from '#setup/prisma';
 import { IUserData, RoleTypes } from '../../user/domain/user.types';
 import { IUserWithPasswordData, IRegisterData } from '../domain/auth.types';
 
 @Injectable()
 export class AuthMapper {
-  toData(user: User): IUserData {
+  toData(user: PrismaRow<'User'>): IUserData {
     return {
       id: user.id,
       email: user.email,
       name: user.name,
-      roles: user.roles as RoleTypes[],
+      roles: [...user.roles] as RoleTypes[],
       verified: user.verified,
       banned: user.banned,
       createdAt: user.createdAt,
@@ -23,7 +23,7 @@ export class AuthMapper {
     };
   }
 
-  toDataWithPassword(user: User): IUserWithPasswordData {
+  toDataWithPassword(user: PrismaRow<'User'>): IUserWithPasswordData {
     return {
       ...this.toData(user),
       password: user.password,
@@ -31,7 +31,9 @@ export class AuthMapper {
   }
 
   /** Everything but the id: the gateway mints that with formatId(USER_ID_PREFIX). */
-  toCreate(data: IRegisterData & { hashedPassword: string }) {
+  toCreate(
+    data: IRegisterData & { hashedPassword: string },
+  ): Omit<PrismaCreate<'User'>, 'id'> {
     return {
       email: data.email,
       name: data.name,
