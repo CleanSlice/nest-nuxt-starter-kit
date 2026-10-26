@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "module": "CommonJS", // Output module format; NestJS runs on Node/CommonJS
+    "module": "nodenext", // CommonJS output (package.json has no "type": "module"); NestJS runs on Node/CommonJS. nodenext lets the ESM-only Prisma 8 runtime be loaded with import() and its types with resolution-mode
     "target": "ES2022", // JS language level to compile down to; ES2022 is safe & deterministic on Node 22
-    "moduleResolution": "node", // How imports are resolved; "node" matches Node.js resolution algorithm
+    "moduleResolution": "nodenext", // Node's own resolution, package "exports" maps included (Prisma 8 publishes only those)
+    "isolatedModules": true, // Each file compiles alone; ts-jest needs it under nodenext
     "esModuleInterop": true, // Allow `import x from "cjs"` interop between CommonJS and ES modules
     "declaration": true, // Emit .d.ts type declaration files alongside compiled JS
     "removeComments": true, // Strip comments from the emitted JavaScript output
@@ -36,9 +37,11 @@
       "./node_modules/@types" // Folders to include ambient type packages from
     ]
   },
+  "include": ["src/**/*"], // prisma.config.ts and the migration plans run on their own, outside the build
   "exclude": [
     "node_modules", // Never compile dependencies
     "dist", // Never compile previously emitted build output
+    "generated", // The emitted Prisma contract; src/ imports its types
     "uploads" // Skip runtime upload storage folder from the program
   ]
 }

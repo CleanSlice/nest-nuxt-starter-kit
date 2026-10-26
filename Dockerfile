@@ -21,12 +21,15 @@ RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
 WORKDIR /build/api
 
 COPY api/package.json api/bun.lock ./
-RUN bun install --frozen-lockfile
+# No lifecycle scripts: the api's `postinstall` (`prisma contract emit`) reads
+# the slices' *.prisma files, which are copied only below; `build` emits it.
+# bcrypt needs none either: it ships musl prebuilds.
+RUN bun install --frozen-lockfile --ignore-scripts
 
 COPY api/ ./
 
-# Merge slice schemas, generate Prisma client, build NestJS, generate swagger spec
-RUN bunx prisma-import --force && bunx prisma generate && bun run build && bun run generate:swagger
+# Emit the Prisma 8 contract, build NestJS, generate swagger spec
+RUN bun run build && bun run generate:swagger
 
 # ============================================
 # Stage 2: Build the App
@@ -64,12 +67,22 @@ FROM node:22-alpine AS runner
 RUN apk add --no-cache nginx curl
 
 WORKDIR /app
+ENV CHECKPOINT_DISABLE=1
 
 # Copy API production build
 COPY --from=api-builder /build/api/dist ./api/dist
+# node_modules carries the Prisma 8 CLI (a devDependency): start.sh migrates with it.
 COPY --from=api-builder /build/api/node_modules ./api/node_modules
-COPY --from=api-builder /build/api/package.json ./api/
-COPY --from=api-builder /build/api/prisma ./api/prisma
+COPY --from=api-builder /build/api/package.json /build/api/prisma.config.ts ./api/
+# The emitted contract: PrismaService reads it at start, the CLI verifies against it.
+COPY --from=api-builder /build/api/generated ./api/generated
+# The Prisma 8 migration plans (TypeScript, run by node), their snapshots and refs.
+COPY --from=api-builder /build/api/prisma/migrations ./api/prisma/migrations
+COPY --from=api-builder /build/api/scripts/migrate.mjs ./api/scripts/
+# The contract source prisma.config.ts names (src/slices/**/*.prisma); only the
+# *.prisma files are kept, the TypeScript beside them is in dist/.
+COPY --from=api-builder /build/api/src/slices ./api/src/slices
+RUN find ./api/src -type f ! -name '*.prisma' -delete && find ./api/src -type d -empty -delete
 
 # Copy Nuxt production build
 COPY --from=app-builder /build/app/.output ./app/.output

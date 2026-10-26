@@ -4,7 +4,7 @@
 // @type:mapper
 
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import type { PrismaCreate, PrismaRow, PrismaUpdate } from '#setup/prisma';
 import {
   IUserData,
   ICreateUserData,
@@ -14,12 +14,12 @@ import {
 
 @Injectable()
 export class UserMapper {
-  toData(user: User): IUserData {
+  toData(user: PrismaRow<'User'>): IUserData {
     return {
       id: user.id,
       email: user.email,
       name: user.name,
-      roles: user.roles as RoleTypes[],
+      roles: [...user.roles] as RoleTypes[],
       verified: user.verified,
       banned: user.banned,
       createdAt: user.createdAt,
@@ -28,7 +28,7 @@ export class UserMapper {
   }
 
   /** Everything but the id: the gateway mints that with formatId(USER_ID_PREFIX). */
-  toCreate(data: ICreateUserData) {
+  toCreate(data: ICreateUserData): Omit<PrismaCreate<'User'>, 'id'> {
     return {
       email: data.email,
       name: data.name,
@@ -37,7 +37,7 @@ export class UserMapper {
     };
   }
 
-  toUpdate(data: IUpdateUserData) {
+  toUpdate(data: IUpdateUserData): PrismaUpdate<'User'> {
     return {
       ...(data.email !== undefined && { email: data.email }),
       ...(data.name !== undefined && { name: data.name }),

@@ -1,26 +1,26 @@
-import { Prisma } from '@prisma/client';
 import { PrismaService } from '#setup/prisma';
 import { IdGateway } from '../id.gateway';
 import { isCanonicalId } from '../../domain';
 
 describe('IdGateway.reserve', () => {
-  const conflict = new Prisma.PrismaClientKnownRequestError('dup', {
-    code: 'P2002',
-    clientVersion: 'test',
-    meta: { target: ['id'] },
+  const conflict = Object.assign(new Error('duplicate key'), {
+    sqlState: '23505',
+    detail: 'Key (id)=(file-x) already exists.',
   });
 
   it('mints a fresh candidate on every attempt and returns the one that committed', async () => {
     const create = jest
-      .fn<Promise<{ id: string }>, [{ data: { id: string } }]>()
+      .fn<Promise<{ id: string }>, [{ id: string }]>()
       .mockRejectedValueOnce(conflict)
-      .mockImplementation(({ data }) => Promise.resolve({ id: data.id }));
-    const prisma = { idReservation: { create } } as unknown as PrismaService;
+      .mockImplementation((row) => Promise.resolve({ id: row.id }));
+    const prisma = {
+      db: { public: { IdReservation: { create } } },
+    } as unknown as PrismaService;
 
     const id = await new IdGateway(prisma).reserve('file');
 
     expect(create).toHaveBeenCalledTimes(2);
-    const [first, second] = create.mock.calls.map(([arg]) => arg.data.id);
+    const [first, second] = create.mock.calls.map(([row]) => row.id);
     expect(first).not.toBe(second);
     expect(id).toBe(second);
     expect(isCanonicalId(id, 'file')).toBe(true);
@@ -28,7 +28,9 @@ describe('IdGateway.reserve', () => {
 
   it('refuses a prefix that is not kebab-case before touching the database', async () => {
     const create = jest.fn();
-    const prisma = { idReservation: { create } } as unknown as PrismaService;
+    const prisma = {
+      db: { public: { IdReservation: { create } } },
+    } as unknown as PrismaService;
     await expect(new IdGateway(prisma).reserve('File')).rejects.toThrow(
       TypeError,
     );

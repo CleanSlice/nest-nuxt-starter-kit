@@ -22,7 +22,7 @@ export class IdGateway extends IIdGateway {
    */
   async reserve(prefix: string): Promise<string> {
     const row = await withIdRetry(() =>
-      this.prisma.idReservation.create({ data: { id: formatId(prefix) } }),
+      this.prisma.db.public.IdReservation.create({ id: formatId(prefix) }),
     );
     return row.id;
   }

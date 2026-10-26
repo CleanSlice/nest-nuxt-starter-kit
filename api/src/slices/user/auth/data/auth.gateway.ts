@@ -20,17 +20,17 @@ export class AuthGateway extends IAuthGateway {
     super();
   }
 
+  private get users() {
+    return this.prisma.db.public.User;
+  }
+
   async findByEmail(email: string): Promise<IUserWithPasswordData | null> {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
+    const user = await this.users.first({ email });
     return user ? this.mapper.toDataWithPassword(user) : null;
   }
 
   async findById(id: string): Promise<IUserData | null> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
+    const user = await this.users.first({ id });
     return user ? this.mapper.toData(user) : null;
   }
 
@@ -38,10 +38,9 @@ export class AuthGateway extends IAuthGateway {
     data: IRegisterData & { hashedPassword: string },
   ): Promise<IUserData> {
     const createData = this.mapper.toCreate(data);
-    const user = await withIdRetry(() =>
-      this.prisma.user.create({
-        data: { id: formatId(USER_ID_PREFIX), ...createData },
-      }),
+    const user = await withIdRetry(
+      () => this.users.create({ id: formatId(USER_ID_PREFIX), ...createData }),
+      this.prisma.inTransaction,
     );
     return this.mapper.toData(user);
   }

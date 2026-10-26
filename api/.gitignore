@@ -10,7 +10,8 @@ coverage/
 # Generated files
 *.tsbuildinfo
 swagger-spec.json
-prisma/schema.prisma
+# The emitted Prisma 8 contract (prisma contract emit)
+generated/
 
 # Docker volumes (PostgreSQL data)
 docker/postgresql/
