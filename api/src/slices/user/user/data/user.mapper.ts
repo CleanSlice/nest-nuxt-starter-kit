@@ -5,7 +5,6 @@
 
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { v4 as uuid } from 'uuid';
 import {
   IUserData,
   ICreateUserData,
@@ -28,9 +27,9 @@ export class UserMapper {
     };
   }
 
+  /** Everything but the id: the gateway mints that with formatId(USER_ID_PREFIX). */
   toCreate(data: ICreateUserData) {
     return {
-      id: `user-${uuid()}`,
       email: data.email,
       name: data.name,
       password: data.password,

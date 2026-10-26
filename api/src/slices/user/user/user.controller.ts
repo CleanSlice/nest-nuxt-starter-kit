@@ -13,11 +13,19 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { EntityIdPipe } from '#setup/id';
 import { UserService } from './domain/user.service';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { FilterUserDto } from './dtos/filterUser.dto';
+import { USER_ID_PREFIX } from './domain/user.types';
+
+const userIdParam = {
+  name: 'id',
+  description: 'User primary ID',
+  example: 'user-calm-rivers-k8m4p2d7n9x3',
+};
 
 @ApiTags('Users')
 @Controller('users')
@@ -32,7 +40,8 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({ operationId: 'getUser', summary: 'Get user by id' })
-  getUser(@Param('id') id: string) {
+  @ApiParam(userIdParam)
+  getUser(@Param('id', new EntityIdPipe(USER_ID_PREFIX)) id: string) {
     return this.userService.getUser(id);
   }
 
@@ -44,13 +53,18 @@ export class UserController {
 
   @Patch(':id')
   @ApiOperation({ operationId: 'updateUser', summary: 'Update user by id' })
-  updateUser(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+  @ApiParam(userIdParam)
+  updateUser(
+    @Param('id', new EntityIdPipe(USER_ID_PREFIX)) id: string,
+    @Body() dto: UpdateUserDto,
+  ) {
     return this.userService.updateUser(id, dto);
   }
 
   @Delete(':id')
   @ApiOperation({ operationId: 'deleteUser', summary: 'Delete user by id' })
-  deleteUser(@Param('id') id: string) {
+  @ApiParam(userIdParam)
+  deleteUser(@Param('id', new EntityIdPipe(USER_ID_PREFIX)) id: string) {
     return this.userService.deleteUser(id);
   }
 }

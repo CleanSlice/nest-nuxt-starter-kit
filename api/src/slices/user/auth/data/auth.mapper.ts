@@ -5,7 +5,6 @@
 
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { v4 as uuid } from 'uuid';
 import { IUserData, RoleTypes } from '../../user/domain/user.types';
 import { IUserWithPasswordData, IRegisterData } from '../domain/auth.types';
 
@@ -31,9 +30,9 @@ export class AuthMapper {
     };
   }
 
+  /** Everything but the id: the gateway mints that with formatId(USER_ID_PREFIX). */
   toCreate(data: IRegisterData & { hashedPassword: string }) {
     return {
-      id: `user-${uuid()}`,
       email: data.email,
       name: data.name,
       password: data.hashedPassword,

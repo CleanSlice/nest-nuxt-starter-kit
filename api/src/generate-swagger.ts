@@ -1,7 +1,7 @@
 // Build-time placeholders so DI doesn't crash (JwtStrategy, PrismaClient)
 // while we only need the OpenAPI document. Never used at runtime.
 process.env.JWT_SECRET ||= '__swagger_build_placeholder__';
-process.env.DATABASE_URL ||= 'postgresql://stub:stub@localhost:5432/stub';
+process.env.DATABASE_URL ||= 'postgresql://stub:stub@localhost:4230/stub';
 
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';

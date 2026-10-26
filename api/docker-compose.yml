@@ -4,7 +4,7 @@ services:
   postgres-local:
     image: postgres:18
     ports:
-      - '5432:5432'
+      - '4230:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
@@ -17,3 +17,17 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  # Mailpit: catches every email the API sends. Inbox at http://localhost:4232
+  mail-local:
+    image: axllent/mailpit:v1.31.4
+    ports:
+      - '127.0.0.1:4231:1025' # SMTP (SMTP_HOST/SMTP_PORT in .env)
+      - '127.0.0.1:4232:8025' # Web UI
+    environment:
+      MP_MAX_MESSAGES: '500'
+    healthcheck:
+      test: ['CMD', '/mailpit', 'readyz']
+      interval: 2s
+      timeout: 3s
+      retries: 30

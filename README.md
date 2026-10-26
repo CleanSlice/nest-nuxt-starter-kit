@@ -22,7 +22,9 @@ nest-nuxt-starter-kit/
 │   │   │   ├── setup/
 │   │   │   │   ├── prisma/      # Database ORM (global)
 │   │   │   │   ├── error/       # Error handling interceptors
-│   │   │   │   └── health/      # Health check endpoint
+│   │   │   │   ├── health/      # Health check endpoint
+│   │   │   │   ├── id/          # Primary IDs: formatId(), withIdRetry(), @IsEntityId()
+│   │   │   │   └── mail/        # Email sending (SMTP; Mailpit locally)
 │   │   │   └── user/            # Example feature slice
 │   │   │       ├── domain/      # Types, abstract gateway
 │   │   │       ├── data/        # Concrete gateway, mapper
@@ -94,7 +96,7 @@ cd my-project
 cd api
 cp .env.example .env.dev
 bun install
-docker compose up -d           # Starts PostgreSQL
+docker compose up -d           # Starts PostgreSQL + Mailpit (inbox: http://localhost:4232)
 bun run migrate                # Runs Prisma migrations
 bun run dev                    # http://localhost:3000
                                # Swagger UI: http://localhost:3000/api
@@ -235,6 +237,8 @@ Setup slices provide shared infrastructure. They are pre-configured in this star
 | `prisma/` | Database ORM — global `PrismaService` |
 | `error/` | Error handling + response interceptors |
 | `health/` | `GET /health` endpoint |
+| `id/` | Primary IDs: `formatId(prefix)` + `withIdRetry()` in gateways, `@IsEntityId()` / `EntityIdPipe` at the boundary |
+| `mail/` | Email sending behind `IMailGateway`; Mailpit locally |
 
 ### Frontend (`app/slices/setup/`)
 
@@ -281,7 +285,7 @@ Add the Prisma model at the slice root:
 ```prisma
 // api/src/slices/project/project.prisma
 model Project {
-  id          String   @id @default(cuid())
+  id          String   @id // minted by the gateway: formatId('project'), never @default(uuid()/cuid())
   name        String
   description String?
   createdAt   DateTime @default(now())
@@ -377,7 +381,7 @@ dependency graphs.
 |--------|---------|
 | `bun run dev` | Start dev server with hot reload (runs `check` first) |
 | `bun run check` | CleanSlice boundary check — groups, cycles, slice layers |
-| `bun run docker` | Start Docker services (PostgreSQL) |
+| `bun run docker` | Start Docker services (PostgreSQL, Mailpit) |
 | `bun run migrate` | Merge Prisma schemas + run migrations |
 | `bun run generate` | Merge Prisma schemas only |
 | `bun run studio` | Open Prisma Studio (DB browser) |
@@ -406,6 +410,12 @@ CORS_ORIGIN=http://localhost:3001
 # JWT
 JWT_SECRET=change-me-in-production
 JWT_EXPIRES_IN=7d
+
+# Email (Docker: Mailpit catches everything, inbox at http://localhost:4232)
+SMTP_HOST=localhost
+SMTP_PORT=4231
+SMTP_SECURE=false
+SMTP_FROM=CleanSlice <noreply@cleanslice.local>
 ```
 
 ### In a deployed container
@@ -426,6 +436,7 @@ it is not.
 
 - **All code lives in `slices/`** — no root-level `components/`, `pages/`, or `services/`
 - **Gateway, not Repository** — Prisma IS the repository, the gateway provides the abstraction
+- **One ID format** — `<prefix>-<adjective>-<noun>-<12 Crockford>`, minted by the gateway with `formatId()`; never `@default(uuid())` / `cuid()`
 - **Abstract classes as DI tokens** — `IUserGateway` is both the type and the injection token
 - **Provider.vue in every component folder** — handles data fetching, children receive props
 - **Pinia stores for state** — in `stores/`, not `composables/`

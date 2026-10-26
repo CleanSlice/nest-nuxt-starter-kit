@@ -1,0 +1,9 @@
+// @scope:api
+// @slice:setup/id
+// @layer:data
+// @type:prisma
+
+/// Burns an identity before irreversible external work; not a second entity ID.
+model IdReservation {
+  id String @id
+}

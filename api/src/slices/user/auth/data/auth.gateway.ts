@@ -5,8 +5,9 @@
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '#setup/prisma';
+import { formatId, withIdRetry } from '#setup/id';
 import { IAuthGateway } from '../domain/auth.gateway';
-import { IUserData } from '../../user/domain/user.types';
+import { IUserData, USER_ID_PREFIX } from '../../user/domain/user.types';
 import { IRegisterData, IUserWithPasswordData } from '../domain/auth.types';
 import { AuthMapper } from './auth.mapper';
 
@@ -37,7 +38,11 @@ export class AuthGateway extends IAuthGateway {
     data: IRegisterData & { hashedPassword: string },
   ): Promise<IUserData> {
     const createData = this.mapper.toCreate(data);
-    const user = await this.prisma.user.create({ data: createData });
+    const user = await withIdRetry(() =>
+      this.prisma.user.create({
+        data: { id: formatId(USER_ID_PREFIX), ...createData },
+      }),
+    );
     return this.mapper.toData(user);
   }
 }

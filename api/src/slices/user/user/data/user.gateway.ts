@@ -6,6 +6,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '#setup/prisma';
+import { formatId, withIdRetry } from '#setup/id';
 import { IMetaResponse } from '#setup/response';
 import { IUserGateway } from '../domain/user.gateway';
 import {
@@ -13,6 +14,7 @@ import {
   ICreateUserData,
   IUpdateUserData,
   IUserFilter,
+  USER_ID_PREFIX,
 } from '../domain/user.types';
 import { UserMapper } from './user.mapper';
 
@@ -73,7 +75,11 @@ export class UserGateway extends IUserGateway {
 
   async createUser(data: ICreateUserData): Promise<IUserData> {
     const createData = this.mapper.toCreate(data);
-    const user = await this.prisma.user.create({ data: createData });
+    const user = await withIdRetry(() =>
+      this.prisma.user.create({
+        data: { id: formatId(USER_ID_PREFIX), ...createData },
+      }),
+    );
     return this.mapper.toData(user);
   }
 
