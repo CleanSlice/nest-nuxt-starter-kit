@@ -18,7 +18,7 @@
         "pinia": "^3.0.4",
         "reflect-metadata": "^0.2.2",
         "reka-ui": "^2.11.0",
-        "tailwind-merge": "^2.6.1",
+        "tailwind-merge": "^2.6.2",
         "vue-sonner": "^2.0.9",
       },
       "devDependencies": {
@@ -1340,7 +1340,7 @@
 
     "tagged-tag": ["tagged-tag@1.0.0", "", {}, "sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng=="],
 
-    "tailwind-merge": ["tailwind-merge@2.6.1", "", {}, "sha512-Oo6tHdpZsGpkKG88HJ8RR1rg/RdnEkQEfMoEk2x1XRI3F1AxeU+ijRXpiVUF4UbLfcxxRGw6TbUINKYdWVsQTQ=="],
+    "tailwind-merge": ["tailwind-merge@2.6.2", "", {}, "sha512-o2TX9QB8K2cfaJYgMwv96uAUQK5SqpRJHD2vGDK5nyF/tk9PQTZFpwgsDsySQjlIbYdZ6ZDkk5W+bSuWSe92AA=="],
 
     "tailwindcss": ["tailwindcss@4.3.5", "", {}, "sha512-FcQk9BuffmEHJP2G0XmB2SplU1aLTI7j07Kunk+U74Ny+XiWOtzXz9aujFZ/avntw1e2cOv/3PkgzflQ7gX2vQ=="],
 
