@@ -49,4 +49,11 @@ export default tseslint.config(
       'no-undef': 'off',
     },
   },
+  {
+    // The core rule does not see bindings used in <template>, so every one of them reads as unused
+    files: ['**/*.vue'],
+    rules: {
+      'no-useless-assignment': 'off',
+    },
+  },
 );

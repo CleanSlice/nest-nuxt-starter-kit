@@ -14,11 +14,10 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    esbuild: {
-      tsconfigRaw: {
-        compilerOptions: {
-          experimentalDecorators: true,
-        },
+    // Vite 8 transforms TypeScript with Oxc; `legacy` is TypeScript's experimentalDecorators
+    oxc: {
+      decorator: {
+        legacy: true,
       },
     },
   },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Copy, Check } from 'lucide-vue-next';
+import { Copy, Check } from '@lucide/vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '#theme/utils';
 

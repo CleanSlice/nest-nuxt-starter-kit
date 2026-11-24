@@ -11,7 +11,7 @@ import {
   Terminal as TerminalIcon,
   Cpu,
   Puzzle,
-} from 'lucide-vue-next';
+} from '@lucide/vue';
 
 const features = [
   {

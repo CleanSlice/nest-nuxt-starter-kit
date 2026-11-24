@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Github, ExternalLink, Sun, Moon } from 'lucide-vue-next';
+import { ExternalLink, Sun, Moon } from '@lucide/vue';
+import { Github } from '#theme/components/ui/icon';
 
 const colorMode = useColorMode();
 

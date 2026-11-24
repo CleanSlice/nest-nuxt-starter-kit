@@ -1,15 +1,17 @@
 import type { Component } from 'vue';
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
-import { icons as lucideIcons } from 'lucide-vue-next';
+import { icons as lucideIcons } from '@lucide/vue';
 
-// Custom icons
+// Custom icons (Lucide 1.0 dropped its brand icons, Github among them)
 import CleanSliceIcon from './icons/CleanSlice.vue';
+import GithubIcon from './icons/Github.vue';
 
-export { CleanSliceIcon as CleanSlice };
+export { CleanSliceIcon as CleanSlice, GithubIcon as Github };
 
 const customIcons: Record<string, Component> = {
   CleanSlice: CleanSliceIcon,
+  Github: GithubIcon,
 };
 
 export function resolveIcon(name: string): Component | undefined {
