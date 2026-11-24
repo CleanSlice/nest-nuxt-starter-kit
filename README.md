@@ -65,7 +65,7 @@ nest-nuxt-starter-kit/
 ## Prerequisites
 
 - [Bun](https://bun.sh/) — the package manager for everything here
-- Node.js 24+ (see `.nvmrc`) — still the production runtime for the api
+- Node.js 26 (see `.nvmrc`) — still the production runtime for the api
 - Docker & Docker Compose
 
 ## AI Development Skills (Claude Code)

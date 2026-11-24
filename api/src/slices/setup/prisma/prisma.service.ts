@@ -88,7 +88,7 @@ export class TransactionTimeoutError extends Error {
  * pick the transaction the same way.
  *
  * The Prisma 8 runtime is ESM-only and loaded with a real `import()` (the build
- * is CommonJS; Node 22 loads ESM from it, and Jest does under
+ * is CommonJS; Node loads ESM from it, and Jest does under
  * `--experimental-vm-modules`). It is loaded at module init; the pool opens its
  * first connection on the first query.
  *

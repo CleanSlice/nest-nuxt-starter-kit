@@ -11,7 +11,7 @@
 # rewriting them to relative paths. The image then builds clean and the api
 # dies on boot with `Cannot find module '#setup/prisma'`, because the runner
 # stage below is plain Node with no alias resolver.
-FROM node:22-alpine AS api-builder
+FROM node:26-alpine AS api-builder
 
 COPY --from=oven/bun:1-alpine /usr/local/bin/bun /usr/local/bin/bun
 # `bunx` is a symlink to the same binary in the oven image; copying the
@@ -36,7 +36,7 @@ RUN bun run build && bun run generate:swagger
 # ============================================
 # Same rule as the api stage — Bun installs, Node builds. Nuxt has no such
 # alias hook, but one rule per image beats remembering which is which.
-FROM node:22-alpine AS app-builder
+FROM node:26-alpine AS app-builder
 
 COPY --from=oven/bun:1-alpine /usr/local/bin/bun /usr/local/bin/bun
 # `bunx` is a symlink to the same binary in the oven image; copying the
@@ -62,7 +62,7 @@ RUN bun run build
 # ============================================
 # Stage 3: Production runtime
 # ============================================
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 
 RUN apk add --no-cache nginx curl
 

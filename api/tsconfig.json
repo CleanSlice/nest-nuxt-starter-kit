@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "nodenext", // CommonJS output (package.json has no "type": "module"); NestJS runs on Node/CommonJS. nodenext lets the ESM-only Prisma 8 runtime be loaded with import() and its types with resolution-mode
-    "target": "ES2022", // JS language level to compile down to; ES2022 is safe & deterministic on Node 22
+    "target": "ES2022", // JS language level to compile down to; ES2022 is safe & deterministic on Node 24+
     "moduleResolution": "nodenext", // Node's own resolution, package "exports" maps included (Prisma 8 publishes only those)
     "isolatedModules": true, // Each file compiles alone; ts-jest needs it under nodenext
     "esModuleInterop": true, // Allow `import x from "cjs"` interop between CommonJS and ES modules
@@ -16,6 +16,7 @@
     "skipLibCheck": true, // Skip type-checking of .d.ts files in dependencies (faster builds)
     "noUnusedLocals": true, // Error on declared but unused local variables
     "noUnusedParameters": true, // Error on declared but unused function parameters
+    "strict": false, // TypeScript 6 defaults it to true; the flags below opt in one by one
     "noImplicitAny": false, // Allow implicit `any` (does not force explicit types everywhere)
     "strictNullChecks": true, // null/undefined are not assignable to other types unless declared
 
@@ -28,11 +29,12 @@
     "resolveJsonModule": true, // Allow importing .json files as typed modules
 
     "rootDir": "./src", // Root of input files; keeps emitted layout flat under dist/ (e.g. dist/main.js)
-    "baseUrl": "./", // Base directory for resolving non-relative module names; required for "paths"
     "paths": {
-      "#setup/*": ["src/slices/setup/*"], // Subpath alias for the shared "setup" slice (error, response, prisma, health)
-      "#user/*": ["src/slices/user/*"] // Subpath alias for the "user" feature slice (auth, user)
+      // Relative to this file: TypeScript 6 deprecates "baseUrl"
+      "#setup/*": ["./src/slices/setup/*"], // Subpath alias for the shared "setup" slice (error, response, prisma, health)
+      "#user/*": ["./src/slices/user/*"] // Subpath alias for the "user" feature slice (auth, user)
     },
+    "types": ["node", "jest"], // Ambient type packages to load; TypeScript 6 loads none unless listed
     "typeRoots": [
       "./node_modules/@types" // Folders to include ambient type packages from
     ]
