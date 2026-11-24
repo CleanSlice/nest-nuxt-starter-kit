@@ -9,6 +9,13 @@ import type postgres from '@prisma/orm-postgres/runtime' with {
 import type { param as rawParam } from '@prisma/orm-postgres/relational-core/expression' with {
   'resolution-mode': 'import',
 };
+import type {
+  CreateInput,
+  DefaultModelRow,
+  MutationUpdateInput,
+} from '@prisma/orm-postgres/orm-client' with {
+  'resolution-mode': 'import',
+};
 import type { JsonValue as PrismaJsonValue } from '@prisma/orm-postgres/target/codec-types' with {
   'resolution-mode': 'import',
 };
@@ -64,32 +71,25 @@ export type JsonValue = PrismaJsonValue;
 export type JsonObject = { [key: string]: JsonValue };
 
 /*
- * What a mapper converts from and to, derived from a model collection: the
- * counterparts of Prisma 6's `User`, `Prisma.UserCreateInput` and
- * `Prisma.UserUpdateInput`, which Prisma 8 does not generate.
+ * What a mapper converts from and to: the counterparts of Prisma 6's `User`,
+ * `Prisma.UserCreateInput` and `Prisma.UserUpdateInput`, which Prisma 8 does
+ * not generate. The ORM client exports them generically over the contract.
  */
-type AnyFn = (...args: never[]) => unknown;
-export type PrismaResponse<C extends { first: AnyFn }> = NonNullable<
-  Awaited<ReturnType<C['first']>>
->;
 /** A row of a model as a plain read returns it: every column, no relation. */
-export type PrismaRow<M extends PrismaModelName> = PrismaResponse<
-  PrismaModels[M]
+export type PrismaRow<M extends PrismaModelName> = DefaultModelRow<
+  Contract,
+  M,
+  'public'
 >;
-/** The first overload of `create`: plain columns, without nested relation writes. */
-export type PrismaCreateRequest<C extends { create: AnyFn }> =
-  C['create'] extends {
-    (data: infer Data, ...rest: never[]): unknown;
-    (...args: never[]): unknown;
-  }
-    ? Data
-    : never;
-export type PrismaCreate<M extends PrismaModelName> = PrismaCreateRequest<
-  PrismaModels[M]
+/** What `create` takes for a model. */
+export type PrismaCreate<M extends PrismaModelName> = CreateInput<
+  Contract,
+  M,
+  'public'
 >;
-export type PrismaUpdateRequest<
-  C extends { where: (...args: never[]) => { update: AnyFn } },
-> = Parameters<ReturnType<C['where']>['update']>[0];
-export type PrismaUpdate<M extends PrismaModelName> = PrismaUpdateRequest<
-  PrismaModels[M]
+/** What `update` takes for a model. */
+export type PrismaUpdate<M extends PrismaModelName> = MutationUpdateInput<
+  Contract,
+  M,
+  'public'
 >;

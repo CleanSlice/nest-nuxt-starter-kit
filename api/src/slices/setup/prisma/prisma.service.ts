@@ -138,11 +138,12 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     this.makeParam = param;
     const { and, or, not } = await import('@prisma/orm-postgres/orm-client');
     this.combinators = { and, or, not };
-    const contractJson: unknown = JSON.parse(
-      readFileSync(CONTRACT_PATH, 'utf8'),
+    const { contractFromJson } = await import('@prisma/orm-postgres/static');
+    const contract = contractFromJson<Contract>(
+      JSON.parse(readFileSync(CONTRACT_PATH, 'utf8')),
     );
-    this.root = postgres<Contract>({
-      contractJson,
+    this.root = postgres({
+      contract,
       url,
       poolOptions: { connectionTimeoutMillis: TRANSACTION_MAX_WAIT_MS },
     });

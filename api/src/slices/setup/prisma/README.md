@@ -17,8 +17,8 @@ classes over it.
 - `bun run prisma:emit` (`prisma contract emit`; also `postinstall`, `build`,
   `dev`, `typecheck`, `test`) writes `api/generated/prisma/contract.{json,d.ts}`.
   Generated, gitignored. `PrismaService` reads `contract.json` at start.
-- Timestamps are `TimestamptzJsDate(3)`, read and written as JS `Date`;
-  `@updatedAt` is `temporal.timestamptzJsDate(3, onCreate: now, onUpdate: now)`.
+- Timestamps are `DateTime` (`timestamptz(3)`, read and written as JS `Date`);
+  `@updatedAt` is `DateTime @onCreate(now()) @onUpdate(now())`.
 
 ## Types
 
@@ -107,6 +107,6 @@ Prisma's own reference for this exact version ships in
 
 ## Depends on
 
-`@prisma/orm-postgres` 8.0.0-rc.14 (runtime), `prisma` 8.0.0-rc.19 (CLI, dev),
-`@prisma/orm-toolchain` / `@prisma/orm-framework` 8.0.0-rc.14 (`overrides`),
+`@prisma/orm-postgres` 8.0.0-rc.25 (runtime), `prisma` 8.0.0-rc.35 (CLI, dev),
+`@prisma/orm-toolchain` / `@prisma/orm-framework` 8.0.0-rc.25 (`overrides`),
 `pg` (test setup). All pinned exactly; `bun.lock` is committed.

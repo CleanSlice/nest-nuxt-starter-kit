@@ -12,6 +12,6 @@ model User {
   roles     String[]
   verified  Boolean  @default(false)
   banned    Boolean  @default(false)
-  createdAt TimestamptzJsDate(3) @default(now())
-  updatedAt temporal.timestamptzJsDate(3, onCreate: now, onUpdate: now)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @onCreate(now()) @onUpdate(now())
 }

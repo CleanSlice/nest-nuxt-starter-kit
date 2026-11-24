@@ -1,6 +1,6 @@
 #!/usr/bin/env -S node
-import type { Contract as End } from '../../snapshots/9b80268405026254dba73bd3e9252f48fbcf3f919f1db4591b32e18e87e211ba/contract';
-import endContract from '../../snapshots/9b80268405026254dba73bd3e9252f48fbcf3f919f1db4591b32e18e87e211ba/contract.json' with { type: 'json' };
+import type { Contract as End } from '../../snapshots/a73a1f41a8a7e30e59a625ce81b7a277bb87e712e76acb335442481fcafb24d3/contract';
+import endContract from '../../snapshots/a73a1f41a8a7e30e59a625ce81b7a277bb87e712e76acb335442481fcafb24d3/contract.json' with { type: 'json' };
 import {
   Migration,
   MigrationCLI,
@@ -9,6 +9,7 @@ import {
   fn,
   lit,
   primaryKey,
+  sql,
 } from '@prisma/orm-postgres/migration';
 
 export default class M extends Migration<never, End> {
@@ -34,7 +35,7 @@ export default class M extends Migration<never, End> {
           }),
           col('createdAt', 'timestamptz(3)', {
             notNull: true,
-            default: fn('now()'),
+            default: fn(sql`now()`),
             codecRef: { codecId: 'pg/timestamptz-date@1', typeParams: { precision: 3 } },
           }),
           col('email', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
@@ -56,7 +57,7 @@ export default class M extends Migration<never, End> {
           primaryKey(['id']),
           checkExpression(
             'User_roles_elem_not_null_37524d49',
-            'array_position("roles", NULL) IS NULL',
+            sql`array_position("roles", NULL) IS NULL`,
           ),
         ],
       }),

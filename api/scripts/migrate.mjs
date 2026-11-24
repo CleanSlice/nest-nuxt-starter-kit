@@ -7,7 +7,8 @@
 // prisma/migrations/app/refs/deploy.json (`prisma db migrate --to deploy`).
 // Applied ones are skipped, so a second run is a no-op. The dev server, the
 // test global setup and the Docker start all call it, so a database is never
-// built two different ways.
+// built two different ways. It never moves a ref: outside CI, `db migrate`
+// would otherwise advance prisma/migrations/app/refs/db.json.
 import { spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -29,7 +30,7 @@ function main() {
   say('applying database migrations');
   // The CLI's own entry, run by this node: the runtime image has no Bun and no npx.
   const cli = join(apiDir, 'node_modules', 'prisma', 'dist', 'prisma.js');
-  run(process.execPath, [cli, 'db', 'migrate', '--to', 'deploy', '--format', 'human']);
+  run(process.execPath, [cli, 'db', 'migrate', '--to', 'deploy', '--no-advance-ref', '--format', 'human']);
   say('done');
 }
 

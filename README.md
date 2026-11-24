@@ -303,8 +303,8 @@ model Project {
   id          String  @id // minted by the gateway: formatId('project'), never @default(uuid()/cuid())
   name        String
   description String?
-  createdAt   TimestamptzJsDate(3) @default(now())
-  updatedAt   temporal.timestamptzJsDate(3, onCreate: now, onUpdate: now)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @onCreate(now()) @onUpdate(now())
 }
 ```
 
